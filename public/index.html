@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="css/mystyles.css">
+ <link rel="stylesheet" href="css/bootstrap.min.css">
+ <script src="js/jquery-1.8.2.min.js"></script>
+ <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+ <script src="https://kit.fontawesome.com/09ad113743.js" crossorigin="anonymous"></script>
+ <title>Document</title>
+ <!-- <script>
+  $(document).ready(function () {
+   $("#signup_nav").click(function () {
+    $(this).addClass("active");
+    $("#signupmodal").modal("show");
+   });
+   $("#closes").click(function () {
+    $("#signup_nav").removeClass("active");
+   });
+   $("#login_nav").click(function () {
+    $(this).addClass("active");
+    $("#passerrl").hide();
+    $("#loginmodal").modal("show");
+   });
+   $("#closel").click(function () {
+    $("#login_nav").removeClass("active");
+   });
+   $("#email").blur(function () {
+    var reg = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    var user = $(this).val();
+    if (reg.test(user)) {
+     $("#emailerr").html("Ok!").css("color", "green");
+     $("#email").addClass("is-valid").removeClass("is-invalid");
+     var url = "/ajax-check-user?email=" + user;
+     $.get(url, function (resp) {
+      if (resp.length == 0) {
+      }
+      else {
+       $("#emailerr").html("This Email is already in use!").css("color", "red");
+       $("#email").removeClass("is-valid").addClass("is-invalid");
+      }
+     });
+    }
+    else {
+     $("#emailerr").html("Invalid e-mail id!").css("color", "red");
+     $("#email").removeClass("is-valid").addClass("is-invalid");
+    }
+   });
+   $("#password").keyup(function () {
+    var reg = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+    var pwd = $(this).val();
+    if (reg.test(pwd)) {
+     $("#passerr").html("Ok!").css("font-size", "16px").css("color", "green");
+     $("#password").addClass("is-valid").removeClass("is-invalid");
+    }
+    else {
+     $("#passerr").css("font-size", "10px").html("Must contain 8 characters including lower and uppercase letters, numbers, and special characters!").css("color", "red");
+     $("#password").removeClass("is-valid").addClass("is-invalid");
+    }
+   });
+   $("#mobile").blur(function () {
+    var reg = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+    var mnr = $(this).val();
+    if (reg.test(mnr)) {
+     $("#mobileerr").html("Ok!").css("color", "green");
+     $("#mobile").addClass("is-valid").removeClass("is-invalid");
+    }
+    else {
+     $("#mobileerr").html("Invalid Mobile Number!").css("color", "red");
+     $("#mobile").removeClass("is-valid").addClass("is-invalid");
+    }
+   });
+   $("#signup").click(function () {
+    if ($("#emailerr").html() == "Ok!" && $("#passerr").html() == "Ok!" && $("#mobileerr").html() == "Ok!" && ($("#utype").val() == "donor" || $("#utype").val() == "recipient")) {
+     //  alert();
+     var user = $("#email").val();
+     var pass = $("#password").val();
+     var mob = $("#mobile").val();
+     var utype = $("#utype").val();
+     var url = "/ajax-signup-user?email=" + user + "&password=" + pass + "&mobile=" + mob + "&utype=" + utype;
+     $.get(url, function (resp) {
+
+     });
+     $("#suerr").html("Saved").css("color", "green");
+     $("#signup_nav").removeClass("active");
+     $("#signupmodal").modal("hide");
+     $("#loginmodal").modal("show");
+    }
+   });
+   // $("#emaillogin").blur(function () {
+   //   var reg = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+   //   var user = $(this).val();
+   //   if (reg.test(user)) {
+   //     $("#emailerrl").html("Ok!").css("color", "green");
+   //     $("#emaillogin").addClass("is-valid").removeClass("is-invalid");
+   //     $("#login").prop("disabled", false);
+   //     var url = "/ajax-check-user?email=" + user;
+   //     $.get(url, function (resp) {
+   //       if (resp.length == 0) {
+   //         $("#emailerrl").html("Invalid User Id!").css("color", "red");
+   //         $("#emaillogin").removeClass("is-valid").addClass("is-invalid");
+   //         alert("SignUp");
+   //         $("#login").prop("disabled",true);
+   //       }
+   //     });
+   //   }
+   //   else {
+   //     $("#emailerrl").html("Invalid e-mail id!").css("color", "red");
+   //     $("#emaillogin").removeClass("is-valid").addClass("is-invalid");
+   //   }
+   // });
+   $("#login").click(function () {
+    var user = $("#emaillogin").val();
+    var pass = $("#passwordlogin").val();
+    var url = "/ajax-login-user?email=" + user + "&password=" + pass;
+    //alert(url);
+    $.get(url, function (resp) {
+     if (resp.length == 0) {
+      $("#passwordlogin").removeClass("is-valid").addClass("is-invalid");
+      alert("Invalid EmailId and Password");
+      $("#passerrl").show();
+     }
+     else {
+      //alert("Hello");
+      //alert(resp[0].utype);
+      localStorage.setItem("email", user);
+      if (resp[0].utype == "donor") {
+       window.location.href = "med-donor-dash.html";
+      }
+      if (resp[0].utype == "recipient") {
+       window.location.href = "med-recipient-dash.html";
+      }
+     }
+    });
+   });
+   $("#comment").click(function () {
+    $("#box").fadeToggle(500);
+   });
+   $("#passerrl").click(function () {
+    var user = $("#emaillogin").val();
+    var url = "/forgot?email=" + user;
+    $.get(url, function (resp) {
+     if (resp.length == 0) {
+      alert("Signup again!");
+     }
+     else {
+      alert("Check your email for password");
+      window.location.href = "index.html";
+     }
+    });
+   });
+  });
+ </script> -->
+ <style>
+  *{
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Tahoma, sans-serif;
+   }
+   .ban1{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/public/images/james-baltz-YbBWmI4hZys-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+   }
+   .ban2 {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/public/images/james-baltz-yihX4Rq-JsI-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+   }
+   .ban3 {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/public/images/joshua-lanzarini-FGvQKMP-iXY-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+   }
+   .navbar{
+    width: 80%;
+    margin: auto;
+    padding: 35px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   }
+   .logo{
+    width: 100px;
+    cursor: pointer;
+   }
+   .navbar ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 25px;
+    position: relative
+   }
+   .navbar ul li a{
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+   }
+   .navbar ul li::after{
+    content: '';
+    height: 3px;
+    width: 0;
+    background: #009688;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.5s;
+   }
+   .navbar ul li:hover::after {
+    width: 100%;
+   }
+   .content{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transition: translateY(-50%);
+    text-align: center;
+    color: #fff;
+   }
+   .content h1{
+    font-size: 70px;
+    margin-top: -130px;
+    font-family:'Times New Roman', Times, serif;
+   }
+   .content h3 {
+    font-size: 23px;
+    font-family:Verdana, Tahoma, sans-serif;
+   }
+   .content p {
+    margin: 20px auto;
+    font-weight: 100;
+    line-height: 25px;
+   }
+   button{
+    border-radius: 25px;
+    width: 150px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 20px 10px;
+    font-weight: bold;
+    border: 2px solid #009688;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+   }
+   span{
+    background: #009688;
+    height: 100%;
+    width: 0;
+    border-radius: 25px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: 0.5s;
+   }
+   button:hover span{
+    width: 100%;
+   }
+   button:hover{
+    border: none;
+   }
+   .carousel-item{
+    transition-duration: 4s ease;
+   }
+ </style>
+</head>
+<body>
+ <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-indicators" style="opacity: 0;">
+   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+    aria-current="true" aria-label="Slide 1"></button>
+   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+   <div class="carousel-item active ban1" data-bs-interval="5000">
+    <div class="navbar">
+     <img src="/public/images/Logo3.png" class="logo" alt="">
+     <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Crop</a></li>
+      <li><a href="#">Yield</a></li>
+      <li><a href="#">Fertilizers</a></li>
+      <li><a href="#">Disease</a></li>
+     </ul>
+    </div>
+    <div class="content">
+     <h1>FARMATE</h1>
+     <h3>The Companion Of The Farmer</h3>
+     <p>Optimize your farms using our latest technologies assisted recommendation systems. <br>Find the ultimate solution to all your farming confusions.</p>
+     <div>
+      <button type="button" style="border-radius: 25px; margin: 20px 10px;"><span></span>Sign Up</button>
+      <button type="button" style="border-radius: 25px; margin: 20px 10px;"><span></span>Sign In</button>
+     </div>
+    </div>
+   </div>
+   <div class="carousel-item ban2" data-bs-interval="5000">
+    <div class="navbar">
+     <img src="/public/images/Logo3.png" class="logo" alt="">
+     <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Crop</a></li>
+      <li><a href="#">Yield</a></li>
+      <li><a href="#">Fertilizers</a></li>
+      <li><a href="#">Disease</a></li>
+     </ul>
+    </div>
+    <div class="content">
+     <h1>FARMATE</h1>
+     <h3>The Companion Of The Farmer</h3>
+     <p>Optimize your farms using our latest technologies assisted recommendation systems. <br>Find the ultimate solution to
+      all your farming confusions.</p>
+     <div>
+      <button type="button" style="border-radius: 25px; margin: 20px 10px;"><span></span>Sign Up</button>
+      <button type="button" style="border-radius: 25px; margin: 20px 10px;"><span></span>Sign In</button>
+     </div>
+    </div>
+   </div>
+   <div class="carousel-item ban3" data-bs-interval="5000">
+    <div class="navbar">
+     <img src="/public/images/Logo3.png" class="logo" alt="">
+     <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Crop</a></li>
+      <li><a href="#">Yield</a></li>
+      <li><a href="#">Fertilizers</a></li>
+      <li><a href="#">Disease</a></li>
+     </ul>
+    </div>
+    <div class="content">
+     <h1>FARMATE</h1>
+     <h3>The Companion Of The Farmer</h3>
+     <p>Optimize your farms using our latest technologies assisted recommendation systems. <br>Find the ultimate solution to
+      all your farming confusions.</p>
+     <div>
+      <button type="button" style="border-radius: 25px; margin: 20px 10px;"><span></span>Sign Up</button>
+      <button type="button" style="border-radius: 25px; margin: 20px 10px;"><span></span>Sign In</button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+   <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+   <span class="visually-hidden">Next</span>
+  </button> -->
+ </div>
+</body>
+</html>
