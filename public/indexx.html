@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery-1.8.2.min.js"></script>
+  <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/d5868145fe.js" crossorigin="anonymous"></script>
+  <title>Index Page</title>
+  <script>
+    $(document).ready(function () {
+      $("#signup_nav").click(function () {
+        $(this).addClass("active");
+        $("#signupmodal").modal("show");
+      });
+      $("#closes").click(function () {
+        $("#signup_nav").removeClass("active");
+      });
+      $("#login_nav").click(function () {
+        $(this).addClass("active");
+        $("#passerrl").hide();
+        $("#loginmodal").modal("show");
+      });
+      $("#closel").click(function () {
+        $("#login_nav").removeClass("active");
+      });
+      $("#email").blur(function () {
+        var reg = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+        var user = $(this).val();
+        if (reg.test(user)) {
+          $("#emailerr").html("Ok!").css("color", "green");
+          $("#email").addClass("is-valid").removeClass("is-invalid");
+          var url = "/ajax-check-user?email=" + user;
+          $.get(url, function (resp) {
+            if (resp.length == 0) {
+            }
+            else {
+              $("#emailerr").html("This Email is already in use!").css("color", "red");
+              $("#email").removeClass("is-valid").addClass("is-invalid");
+            }
+          });
+        }
+        else {
+          $("#emailerr").html("Invalid e-mail id!").css("color", "red");
+          $("#email").removeClass("is-valid").addClass("is-invalid");
+        }
+      });
+      $("#usname").blur(function () {
+        var reg = /(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/;
+        var us = $(this).val();
+        if (reg.test(us)) {
+          $("#usnamerr").html("Ok!").css("color", "green");
+          $("#usname").addClass("is-valid").removeClass("is-invalid");
+        }
+        else {
+          $("#usnamerr").html("Invalid Name!").css("color", "red");
+          $("#usname").removeClass("is-valid").addClass("is-invalid");
+        }
+      });
+      $("#password").keyup(function () {
+        var reg = /(?=^.{8,}$)(?=.*\d)(?=.*[!@$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        var pwd = $(this).val();
+        if (reg.test(pwd)) {
+          $("#passerr").html("Ok!").css("font-size", "16px").css("color", "green");
+          $("#password").addClass("is-valid").removeClass("is-invalid");
+        }
+        else {
+          $("#passerr").css("font-size", "10px").html("Must contain 8 characters including lower and uppercase letters, numbers, and special characters!").css("color", "red");
+          $("#password").removeClass("is-valid").addClass("is-invalid");
+        }
+      });
+      $("#mobile").blur(function () {
+        var reg = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+        var mnr = $(this).val();
+        if (reg.test(mnr)) {
+          $("#mobileerr").html("Ok!").css("color", "green");
+          $("#mobile").addClass("is-valid").removeClass("is-invalid");
+        }
+        else {
+          $("#mobileerr").html("Invalid Mobile Number!").css("color", "red");
+          $("#mobile").removeClass("is-valid").addClass("is-invalid");
+        }
+      });
+      $("#signup").click(function () {
+        if ($("#emailerr").html() == "Ok!" && $("#passerr").html() == "Ok!" && $("#mobileerr").html() == "Ok!" && $("#usnamerr").html() == "Ok!") {
+          var user = $("#email").val();
+          var pass = $("#password").val();
+          var mob = $("#mobile").val();
+          var name = $("#usname").val();
+          var url = "/ajax-signup-user?email=" + user + "&password=" + pass + "&mobile=" + mob + "&name=" + name;
+          // alert(url);
+          $.get(url, function (resp) {
+            
+          });
+          $("#suerr").html("Saved").css("color", "green");
+          $("#signup_nav").removeClass("active");
+          $("#signupmodal").modal("hide");
+          $("#loginmodal").modal("show");
+        }
+      });
+      $("#emaillogin").blur(function () {
+        var reg = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+        var user = $(this).val();
+        if (reg.test(user)) {
+          //$("#emailerrl").html("Ok!").css("color", "green");
+          $("#emaillogin").addClass("is-valid").removeClass("is-invalid");
+          $("#login").prop("disabled", false);
+          var url = "/ajax-check-user?email=" + user;
+          $.get(url, function (resp) {
+            if (resp.length == 0) {
+              $("#emailerrl").html("Invalid User Id!").css("color", "red");
+              $("#emaillogin").removeClass("is-valid").addClass("is-invalid");
+              //alert("SignUp");
+              $("#login").prop("disabled",true);
+            }
+          });
+        }
+        else {
+          $("#emailerrl").html("Invalid e-mail id!").css("color", "red");
+          $("#emaillogin").removeClass("is-valid").addClass("is-invalid");
+        }
+      });
+      $("#login").click(function () {
+        var user = $("#emaillogin").val();
+        var pass = $("#passwordlogin").val();
+        var url = "/ajax-login-user?email=" + user + "&password=" + pass;
+        //alert(url);
+        $.get(url, function (resp) {
+          if (resp.length == 0) {
+            $("#passwordlogin").removeClass("is-valid").addClass("is-invalid");
+            alert("Invalid EmailId and Password");
+            $("#passerrl").show();
+          }
+          else {
+            // alert("Hello");
+            //alert(resp[0].utype);
+            localStorage.setItem("email",user);
+            window.location.href = "dash.html";
+          }
+        });
+      });
+      $("#passerrl").click(function(){
+        var user = $("#emaillogin").val();
+        var url = "/forgot?email="+user;
+        $.get(url,function(resp){
+          if(resp.length==0){
+            alert("Signup again!");
+          }
+          else{
+            alert("Check your email for password");
+            window.location.href="indexx.html";
+          }
+        });
+      });
+    });
+  </script>
+  <style>
+    body{
+      background-image: linear-gradient(135deg, #264653 10%, #14213d 100%);
+    }
+    .navbar-brand{
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 30px;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px #b19b9b;
+    }
+    #comment{
+      border-radius: 50%;
+      background-color: #fca311;
+      cursor: pointer;
+      height: 50px;
+      width: 50px;
+      bottom: 10px;
+      right: 10px;
+      position:fixed;
+      box-shadow: 1px 1px 10px #b19b9b;
+      padding: 13px;
+    }
+    #pptc:hover{
+      opacity: 0.7;
+    }
+    .card:hover{
+      transform: scale(1.02);
+    }
+    #pic:hover{
+      transform: scale(1.1);
+    }
+    .nav-link{
+        color:white;
+      }
+    .nav-link:hover{
+        color:wheat;
+    }
+  </style>
+</head>
+
+<body id="top">
+  <nav class="navbar navbar-expand-lg" >
+    <div class="container-fluid" style="background-color: black;">
+      <a class="navbar-brand text-white" href="#" style="font-family: Arial, Helvetica, sans-serif;">
+        <img src="images/Logo3.png" alt="" width="60">
+        Farmate
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+          <li class="nav-item ">
+            <a class="nav-link " aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#service">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#about">About Us</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" id="signup_nav" href="#">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" id="login_nav" href="#">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true"
+        aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="./images/james-baltz-YbBWmI4hZys-unsplash.jpg"
+          class="d-block w-100" alt="..." height="600px">
+      </div>
+      <div class="carousel-item">
+        <img
+          src="./images/james-baltz-yihX4Rq-JsI-unsplash.jpg"
+          class="d-block w-100" alt="..." height="600px">
+      </div>
+      <div class="carousel-item">
+        <img
+          src="./images/joshua-lanzarini-FGvQKMP-iXY-unsplash.jpg"
+          class="d-block w-100" alt="..." height="600px">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div><br>
+  <center>
+  <table rules="all" width="100%" cellspacing=10>
+    <tr>
+      <td>
+        <nav id="service" class="navbar" style="background-color:black;border-radius: 15px;">
+          <div class="container-fluid" style="justify-content: center;">
+            <span class="navbar-brand mb-0 h1 text-white">What We Do</span>
+          </div>
+        </nav>
+        <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
+          <div class="card text-center" style="width: 14rem; float: left;">
+            <img src="./images/img-crop.jpg" class="card-img-top p-1 rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Crop Recommendation</h5>
+              <p class="card-text">This system recommends a crop based on the nutrients present in the soil, pH, rainfall, temperature and humidity which will help in not only maximizing the yeild but also protecting the environment.</p>
+            </div>
+          </div>
+          <div class="card text-center" style="width: 14rem; float: left;">
+            <img height="170" src="./images/img-disease.webp" class="card-img-top p-1 rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Disease Detection</h5>
+              <p class="card-text">This AI and ML based disease detection system detects the type of disease by which a crop is affected using a picture of the plant leaf or fruit and then suggests ways to correct it.</p>
+            </div>
+          </div>
+          <div class="card text-center" style="width: 14rem; float: left;">
+            <img height="170"
+              src="./images/img-Fertilizers.jpg"
+              class="card-img-top p-1 rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Fertilizer Recommendation</h5>
+              <p class="card-text">This system is used to predict the particular fertilizer to be used for a crop based on parameters like N, P and K contents of soil, temperature, humidity, moisture and soil type and the crop to be grown.</p>
+            </div>
+          </div>
+          <div class="card text-center" style="width: 14rem; float: left;">
+            <img src="./images/img-yield.png" class="card-img-top p-1 rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Yield Prediction</h5>
+              <p class="card-text">Crop yield prediction is done using crop yield data, nutrients and location. It helps the farmer to build a realistic expectation of the MSP of his crop.</p>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <nav id="about" class="navbar " style="background-color: black;border-radius: 15px;">
+          <div class="container-fluid" style="justify-content: center;">
+            <span class="navbar-brand mb-0 h1 text-white">Who We Are</span>
+          </div>
+        </nav>
+      </td>
+    </tr><br>
+    <tr>
+      <td>
+        
+      </td>
+    </tr>
+    <tr>
+      <td class="" style="background-color: black">
+        <div class=" text-white">Copyright <i class="far fa-copyright"></i> 2022 CPGNo.30- All rights reserved.</div>
+        <center>
+          <br>
+          <a id="pptc" class="text-white" href="#" style="color: rgb(78, 78, 78); text-decoration: none; font-weight: bold;"> Privacy Policy </a> <i style="color: rgb(78, 78, 78);" class="fas fa-circle text-white"></i> 
+          <a id="pptc"  class="text-white" style="color: rgb(78, 78, 78);text-decoration: none; font-weight: bold;" href="#"> Terms of Service </a>
+        </center>
+        <div id="comment"><a href="#top" style="text-decoration: none; color: white"><center><i class="fa-regular fa-circle-arrow-up"></i></center></a></div>
+        </div>
+      </td>
+    </tr>
+  </table>
+  </center>
+  <div class="modal fade" id="signupmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="signupmodalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+          <button type="button" id="closes" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-floating">
+              <input type="email" autofocus class="form-control" name="email" id="email" placeholder="name@example.com">
+              <label for="email">Email address</label>
+              <span id="emailerr">&nbsp;</span>
+            </div>
+            <div class="form-floating">
+              <input type="text" class="form-control" name="usname" id="usname">
+              <label for="usname">Name</label>
+              <span id="usnamerr">&nbsp;</span>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" name="password" id="password">
+              <label for="password">Password</label>
+              <span id="passerr">&nbsp;</span>
+            </div>
+            <div class="form-floating">
+              <input type="text" class="form-control" name="mobile" id="mobile">
+              <label for="mobile">Mobile Number</label>
+              <span id="mobileerr">&nbsp;</span>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="signup" class="btn btn-success">Sign Up</button>
+          <span id="suerr">&nbsp;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="loginmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="loginmodalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <button type="button" id="closel" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-floating">
+              <input type="email" autofocus class="form-control" name="email" id="emaillogin"
+                placeholder="name@example.com">
+              <label for="emaillogin">Email address</label>
+              <span id="emailerrl">&nbsp;</span>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" name="password" id="passwordlogin">
+              <label for="passwordlogin">Password</label>
+              <span id="passerrl"><a href="#" style="text-decoration: none;">Forgot Password?</a></span>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="login" class="btn btn-warning">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
