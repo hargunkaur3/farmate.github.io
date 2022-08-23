@@ -9,7 +9,6 @@ var transporter = nodemailer.createTransport({
     pass: 'missgunu'
   }
 });
-var recipientRouter=require("./recipient-router");
 var mysql = require("mysql");
 var dbConfigObj = {
  host: "localhost",
@@ -259,4 +258,3 @@ app.get("/undoland",function(req,resp){
   }
  });
 });
-app.use("/recipient",recipientRouter);
