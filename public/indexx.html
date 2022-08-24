@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,14 +62,14 @@
         }
       });
       $("#password").keyup(function () {
-        var reg = /(?=^.{8,}$)(?=.*\d)(?=.*[!@$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        var reg = /(?=^.{8,}$)(?=.*\d)(?!.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         var pwd = $(this).val();
         if (reg.test(pwd)) {
           $("#passerr").html("Ok!").css("font-size", "16px").css("color", "green");
           $("#password").addClass("is-valid").removeClass("is-invalid");
         }
         else {
-          $("#passerr").css("font-size", "10px").html("Must contain 8 characters including lower and uppercase letters, numbers, and special characters!").css("color", "red");
+          $("#passerr").css("font-size", "10px").html("Must contain 8 characters including a lowercase and a uppercase character, and a number!").css("color", "red");
           $("#password").removeClass("is-valid").addClass("is-invalid");
         }
       });

@@ -38,6 +38,16 @@ app.get("/home", function (req, resp) {
 });
 app.get("/ajax-check-user", function (req, resp) {
  //console.log(req.query.email);
+//  var stmt;
+//  var res;
+//  var sqlq="select * from userss where email=?";
+//  if(stmt=dbcon.prepare(sqlq))
+//  {
+//   stmt.bind_param("s",[req.query.email]);
+//   stmt.execute();
+//   stmt.bind_result(res);
+//   resp.send(res);
+//  }
  dbcon.query("select * from userss where email=?", [req.query.email], function (err, res) {
   //console.log(res);
   resp.send(res);
@@ -58,6 +68,16 @@ app.get("/ajax-signup-user", function (req, resp) {
 });
 app.get("/ajax-login-user", function (req, resp) {
  //console.log(req.query);
+//  var stmt;
+//  var res;
+//  var sqlq="select * from userss where email=?";
+//  if(stmt=dbcon.prepare(sqlq))
+//  {
+//   stmt.bind_param("s",[req.query.email]);
+//   stmt.execute();
+//   stmt.bind_result(res);
+//   resp.send(res);
+//  }
  dbcon.query("select email from userss where (email=? and password=?)", [req.query.email, req.query.password], function (err, res) {
   console.log(res);
   resp.send(res);
