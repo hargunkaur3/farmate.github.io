@@ -9,6 +9,7 @@ var transporter = nodemailer.createTransport({
     pass: 'missgunu'
   }
 });
+var recipientRouter=require("./recipient-router");
 var mysql = require("mysql");
 var dbConfigObj = {
  host: "localhost",
@@ -38,16 +39,6 @@ app.get("/home", function (req, resp) {
 });
 app.get("/ajax-check-user", function (req, resp) {
  //console.log(req.query.email);
-//  var stmt;
-//  var res;
-//  var sqlq="select * from userss where email=?";
-//  if(stmt=dbcon.prepare(sqlq))
-//  {
-//   stmt.bind_param("s",[req.query.email]);
-//   stmt.execute();
-//   stmt.bind_result(res);
-//   resp.send(res);
-//  }
  dbcon.query("select * from userss where email=?", [req.query.email], function (err, res) {
   //console.log(res);
   resp.send(res);
@@ -68,16 +59,6 @@ app.get("/ajax-signup-user", function (req, resp) {
 });
 app.get("/ajax-login-user", function (req, resp) {
  //console.log(req.query);
-//  var stmt;
-//  var res;
-//  var sqlq="select * from userss where email=?";
-//  if(stmt=dbcon.prepare(sqlq))
-//  {
-//   stmt.bind_param("s",[req.query.email]);
-//   stmt.execute();
-//   stmt.bind_result(res);
-//   resp.send(res);
-//  }
  dbcon.query("select email from userss where (email=? and password=?)", [req.query.email, req.query.password], function (err, res) {
   console.log(res);
   resp.send(res);
@@ -203,8 +184,8 @@ app.post("/land-save", function (req, resp) {
 //    console.log("Object uploaded");
 //   }
 //  });
- var data = [req.body.email, req.body.loc, req.body.landname, req.area, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.doa, req.body.status];
- dbcon.query("insert into landd values(null,?,?,?,?,?,?,?,?,?,?,current_date,1)", data, function (err) {
+ var data = [req.body.email, req.body.loc, req.body.landname, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.doa, req.body.status];
+ dbcon.query("insert into landd values(null,?,?,?,?,?,?,?,?,?,current_date,1)", data, function (err) {
   if (err) {
    console.log("*    "+err.message);
   }
@@ -239,8 +220,8 @@ app.post("/land-update",function(req,resp){
 //    console.log("Object uploaded");
 //   }
 //  });
-  var data = [req.body.loc, req.body.landname, req.body.area,req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.rid];
- dbcon.query("update landd set loc=?,	landname=?, area=?,	n=?,	p=?, k=?, ph=?, moisture=?, type=? where rid=?",data,function(err){
+  var data = [req.body.loc, req.body.landname, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.rid];
+ dbcon.query("update landd set loc=?,	landname=?,	n=?,	p=?, k=?, ph=?, moisture=?, type=? where rid=?",data,function(err){
   if(err){
    console.log(err.message);
   }
@@ -278,3 +259,4 @@ app.get("/undoland",function(req,resp){
   }
  });
 });
+app.use("/recipient",recipientRouter);

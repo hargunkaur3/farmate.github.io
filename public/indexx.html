@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,14 +61,14 @@
         }
       });
       $("#password").keyup(function () {
-        var reg = /(?=^.{8,}$)(?=.*\d)(?!.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        var reg = /(?=^.{8,}$)(?=.*\d)(?=.*[!@$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         var pwd = $(this).val();
         if (reg.test(pwd)) {
           $("#passerr").html("Ok!").css("font-size", "16px").css("color", "green");
           $("#password").addClass("is-valid").removeClass("is-invalid");
         }
         else {
-          $("#passerr").css("font-size", "10px").html("Must contain 8 characters including a lowercase and a uppercase character, and a number!").css("color", "red");
+          $("#passerr").css("font-size", "10px").html("Must contain 8 characters including lower and uppercase letters, numbers, and special characters!").css("color", "red");
           $("#password").removeClass("is-valid").addClass("is-invalid");
         }
       });
@@ -195,6 +194,9 @@
     .nav-link:hover{
         color:wheat;
     }
+    .navbar-nav{
+      margin: 10px;
+    }
   </style>
 </head>
 
@@ -220,13 +222,17 @@
           <li class="nav-item">
             <a class="nav-link " aria-current="page" href="#about">About Us</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="manual.html">Help</a>
+          </li>
         </ul>
         <ul class="navbar-nav">
+          <!-- <li class="nav-item"><a class="nav-link" href="crop.html">Crop</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Yield</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Fertilizers</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Disease</a></li> -->
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" id="signup_nav" href="#">Sign Up</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" id="login_nav" href="#">Login</a>
+            <a class="nav-link" href="dash.html">Dashboard</a>
           </li>
         </ul>
       </div>
@@ -319,9 +325,41 @@
     </tr><br>
     <tr>
       <td>
-        
+        <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
+          <div class="card text-center" style="width: 14rem; float: left;">
+            <img height="170" src="./images/hargun.jpg" class="card-img-top p-1 rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Hargun Kaur</h5>
+              <p class="card-text">Roll no. 101903265 <br> Computer Science <br> Thapar University, Patiala</p>
+            </div>
+          </div>
+          <div class="card text-center" style="width: 14rem; float: left;">
+            <img height="170" src="./images/pooja.jpeg" class="card-img-top p-1 rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Pooja Verma</h5>
+              <p class="card-text">Roll no. 101903408 <br> Computer Science <br> Thapar University, Patiala</p>
+            </div>
+          </div>
+          <div class="card text-center" style="width: 14rem; float: left;">
+            <img height="170"
+              src="./images/disha.jpeg"
+              class="card-img-top p-1 rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Disha Sharma</h5>
+              <p class="card-text">Roll no. 101903291 <br> Computer Science <br> Thapar University, Patiala</p>
+            </div>
+          </div>
+          <div class="card text-center" style="width: 14rem; float: left;">
+            <img height="170" src="./images/vibhuti.jpeg" class="card-img-top p-1 rounded" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Vibhuti Gupta</h5>
+              <p class="card-text">Roll no. 101917061 <br> Computer Science <br> Thapar University, Patiala</p>
+            </div>
+          </div>
+        </div>
       </td>
     </tr>
+
     <tr>
       <td class="" style="background-color: black">
         <div class=" text-white">Copyright <i class="far fa-copyright"></i> 2022 CPGNo.30- All rights reserved.</div>
@@ -330,13 +368,21 @@
           <a id="pptc" class="text-white" href="#" style="color: rgb(78, 78, 78); text-decoration: none; font-weight: bold;"> Privacy Policy </a> <i style="color: rgb(78, 78, 78);" class="fas fa-circle text-white"></i> 
           <a id="pptc"  class="text-white" style="color: rgb(78, 78, 78);text-decoration: none; font-weight: bold;" href="#"> Terms of Service </a>
         </center>
-        <div id="comment"><a href="#top" style="text-decoration: none; color: white"><center><i class="fa-regular fa-circle-arrow-up"></i></center></a></div>
+        <div id="comment">
+          <a href="manual.html" style="text-decoration: none; color: white"><center><i class="fa-regular fa-circle-arrow-up"></i></center></a></div>
         </div>
       </td>
     </tr>
+
+    <tr>
+      <td>
+        <div class="text-white" style="text-align: center; font-size: 18px;">Farming is a profession of hope.</div>
+      </td>
+    </tr>
+
   </table>
   </center>
-  <div class="modal fade" id="signupmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  <!-- <div class="modal fade" id="signupmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="signupmodalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -374,8 +420,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="modal fade" id="loginmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  </div> -->
+  <!-- <div class="modal fade" id="loginmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="loginmodalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -403,7 +449,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+
+
 </body>
 
 </html>
