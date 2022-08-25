@@ -203,8 +203,8 @@ app.post("/land-save", function (req, resp) {
 //    console.log("Object uploaded");
 //   }
 //  });
- var data = [req.body.email, req.body.loc, req.body.landname, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.doa, req.body.status];
- dbcon.query("insert into landd values(null,?,?,?,?,?,?,?,?,?,current_date,1)", data, function (err) {
+ var data = [req.body.email, req.body.loc, req.body.landname, req.area, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.doa, req.body.status];
+ dbcon.query("insert into landd values(null,?,?,?,?,?,?,?,?,?,?,current_date,1)", data, function (err) {
   if (err) {
    console.log("*    "+err.message);
   }
@@ -239,8 +239,8 @@ app.post("/land-update",function(req,resp){
 //    console.log("Object uploaded");
 //   }
 //  });
-  var data = [req.body.loc, req.body.landname, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.rid];
- dbcon.query("update landd set loc=?,	landname=?,	n=?,	p=?, k=?, ph=?, moisture=?, type=? where rid=?",data,function(err){
+  var data = [req.body.loc, req.body.landname, req.body.area,req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.rid];
+ dbcon.query("update landd set loc=?,	landname=?, area=?,	n=?,	p=?, k=?, ph=?, moisture=?, type=? where rid=?",data,function(err){
   if(err){
    console.log(err.message);
   }
