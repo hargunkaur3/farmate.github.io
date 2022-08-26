@@ -45,6 +45,7 @@
           $("#rid").val(localStorage.getItem("rid"));
           $("#loc").val(resp[0].loc);
           $("#landname").val(resp[0].landname);
+          $("#area").val(resp[0].area);
           $("#n").val(resp[0].n);
           $("#p").val(resp[0].p);
           $("#k").val(resp[0].k);
@@ -55,6 +56,12 @@
           // $("#shw").attr("src","/uploads/"+resp[0].picname);
         }
       });
+      $("#save").css("visibility", "hidden");
+      $("#update").css("visibility", "visible");
+    }
+    else{
+      $("#save").css("visibility", "visible");
+      $("#update").css("visibility", "hidden");
     }
   }
   function resetme() {
@@ -63,6 +70,7 @@
       document.getElementById("email").value = em;
       $("#loc").val(null);
       $("#landname").val(null);
+      $("#area").val(null);
       $("#n").val(null);
       $("#p").val(null);
       $("#k").val(null);
@@ -140,6 +148,12 @@
   <div class="col-sm-10">
    <input type="text" class="form-control" id="landname" name="landname">
    </div>
+  </div>
+  <div class="row mb-3 g-3">
+    <label for="area" class="col-sm-2 col-form-label">Area (in sq. yards)</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="area" name="area">
+    </div>
   </div>
   <input type="text" hidden name="rid" id="rid">
   <!-- <input type="text" hidden name="picture" id="picture"> -->

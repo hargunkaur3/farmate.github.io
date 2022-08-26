@@ -9,7 +9,6 @@ var transporter = nodemailer.createTransport({
     pass: 'missgunu'
   }
 });
-var recipientRouter=require("./recipient-router");
 var mysql = require("mysql");
 var dbConfigObj = {
  host: "localhost",
@@ -70,8 +69,8 @@ app.get("/forgot",function(req,resp){
   var mailOptions = {
   from: 'hargun312kaur@gmail.com',
   to: req.query.email,
-  subject: 'Password for Medissist',
-  html: '<h4>Your password for the Medissist account is "'+res[0].password+'".</h4><br><p>Please click on the following link to <a href="index.html">Login</a>. </p>'
+  subject: 'Password for Farmate',
+  html: '<h4>Your password for the Farmate account is "'+res[0].password+'".</h4><br><p>Please click on the following link to <a href="index.html">Login</a>. </p>'
   };
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
@@ -184,8 +183,8 @@ app.post("/land-save", function (req, resp) {
 //    console.log("Object uploaded");
 //   }
 //  });
- var data = [req.body.email, req.body.loc, req.body.landname, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.doa, req.body.status];
- dbcon.query("insert into landd values(null,?,?,?,?,?,?,?,?,?,current_date,1)", data, function (err) {
+ var data = [req.body.email, req.body.loc, req.body.landname, req.body.area, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.doa, req.body.status];
+ dbcon.query("insert into landd values(null,?,?,?,?,?,?,?,?,?,?,current_date,1)", data, function (err) {
   if (err) {
    console.log("*    "+err.message);
   }
@@ -220,8 +219,8 @@ app.post("/land-update",function(req,resp){
 //    console.log("Object uploaded");
 //   }
 //  });
-  var data = [req.body.loc, req.body.landname, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.rid];
- dbcon.query("update landd set loc=?,	landname=?,	n=?,	p=?, k=?, ph=?, moisture=?, type=? where rid=?",data,function(err){
+  var data = [req.body.loc, req.body.landname, req.body.area, req.body.n, req.body.p, req.body.k, req.body.ph, req.body.moisture, req.body.type, req.body.rid];
+ dbcon.query("update landd set loc=?,	landname=?, area=?,	n=?,	p=?, k=?, ph=?, moisture=?, type=? where rid=?",data,function(err){
   if(err){
    console.log(err.message);
   }
@@ -259,4 +258,3 @@ app.get("/undoland",function(req,resp){
   }
  });
 });
-app.use("/recipient",recipientRouter);
