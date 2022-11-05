@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="css/bootstrap.min.css">
+ <script src="js/jquery-1.8.2.min.js"></script>
+ <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+ <title>Document</title>
+ <style>
+  body {
+   background-color: #f0e9fa;
+  }
+
+  #link {
+   text-decoration: none;
+  }
+
+  #mybutton {
+   color: azure;
+   background-color: darkslategray;
+   float: right;
+   height: 50px;
+   width: 170px;
+   border-radius: 30px;
+   padding: 10px 10px 10px 17px;
+  }
+
+  #mybutton:hover {
+   color: darkslategray;
+   background-color: azure;
+  }
+ </style>
+ <script>
+  function loading() {
+      var em = localStorage.getItem("email");
+      document.getElementById("email").value = em;
+      if (localStorage.getItem("rid")) {
+        var url = "/getinf?rid=" + localStorage.getItem("rid");
+        // alert(url);
+        $.get(url, function (resp) {
+          if (resp.length == 0) {
+            alert("Something went wrong");
+          }
+          else {
+            //alert(JSON.stringify(resp));
+            $("#rid").val(localStorage.getItem("rid"));
+            $("#loc").val(resp[0].loc);
+            $("#landname").val(resp[0].landname);
+            $("#area").val(resp[0].area);
+            $("#n").val(resp[0].n);
+            $("#p").val(resp[0].p);
+            $("#k").val(resp[0].k);
+            $("#ph").val(resp[0].ph);
+            $("#type").val(resp[0].type);
+            $("#moisture").val(resp[0].moisture);
+            // $("#picture").val(resp[0].picname);
+            // $("#shw").attr("src","/uploads/"+resp[0].picname);
+          }
+        });
+        $("#save").css("visibility", "hidden");
+        $("#update").css("visibility", "visible");
+      }
+      else {
+        $("#save").css("visibility", "visible");
+        $("#update").css("visibility", "hidden");
+      }
+    }
+  // function show(ref) {
+  //   document.getElementById("shw").src = URL.createObjectURL(ref.files[0]);
+  //  }
+  // function getrid() {
+  //     // alert("hi");
+  //     var user = document.getElementById("email").value;
+  //     var ln = document.getElementById("landname").value;
+  //     var url = "/getrid?email=" + user + "&landname=" + ln;
+  //     alert(url);
+  //     $.get(url, function (resp) {
+  //       if (resp.length == 0) {
+
+  //       }
+  //       else {
+  //         $("#rid").val(resp[0].rid);
+  //       }
+  //     });
+  //     if ($("#rid")) {
+  //     alert($("#rid"));
+  //     var url = "/getinf?rid=" + $("#rid");
+  //     $.get(url, function (resp) {
+  //       if (resp.length == 0) {
+  //         alert("Something went wrong");
+  //       }
+  //       else {
+  //         //alert(JSON.stringify(resp));
+  //         $("#loc").val(resp[0].loc);
+  //         $("#landname").val(resp[0].landname);
+  //         $("#n").val(resp[0].n);
+  //         $("#p").val(resp[0].p);
+  //         $("#k").val(resp[0].k);
+  //         $("#ph").val(resp[0].ph);
+  //         $("#type").val(resp[0].moisture);
+  //         $("#moisture").val(resp[0].type);
+  //         // $("#picture").val(resp[0].picname);
+  //         // $("#shw").attr("src","/uploads/"+resp[0].picname);
+  //       }
+  //     });
+  //   }
+  //   }
+ </script>
+</head>
+
+<body onload="loading();">
+ <a id="link" href="landinfo.html">
+  <div id="mybutton">
+   Back to Land Info
+  </div>
+ </a>
+ <h1><input readonly type="text" class="form-control" id="landname" name="landname"></h1>
+ <hr>
+<form class="mx-5" method="POST" enctype="multipart/form-data">
+  <div class="row mb-3 g-3">
+   <label for="email" class="col-sm-2 col-form-label">Email</label>
+   <div class="col-sm-10">
+    <input readonly type="email" class="form-control" name="email" id="email">
+   </div>
+  </div>
+  <div class="row mb-3 g-3">
+   <label for="loc" class="col-sm-2 col-form-label">Location</label>
+   <div class="col-sm-10">
+    <input readonly type="text" class="form-control" name="loc" id="loc">
+   </div>
+  </div>
+  <!-- <div class="row mb-3 g-3">
+   <label for="landname" class="col-sm-2 col-form-label">Land Name</label>
+   <div class="col-sm-10">
+    <input readonly type="text" class="form-control" id="landname" name="landname">
+   </div>
+  </div> -->
+  <div class="row mb-3 g-3">
+   <label for="area" class="col-sm-2 col-form-label">Area (in sq. yards)</label>
+   <div class="col-sm-10">
+    <input readonly type="number" class="form-control" id="area" name="area">
+   </div>
+  </div>
+  <input type="text" hidden name="rid" id="rid">
+  <!-- <input type="text" hidden name="picture" id="picture"> -->
+  <div class="row mb-3 g-3">
+   <label for="n" class="col-sm-2 col-form-label">Nitrogen Content of Soil</label>
+   <div class="col-sm-10">
+    <input readonly type="number" step="0.01" class="form-control" id="n" name="n">
+   </div>
+  </div>
+  <div class="row mb-3 g-3">
+   <label for="p" class="col-sm-2 col-form-label">Phosphorous Content of Soil</label>
+   <div class="col-sm-10">
+    <input readonly type="number" step="0.01" class="form-control" id="p" name="p">
+   </div>
+  </div>
+  <div class="row mb-3 g-3">
+   <label for="k" class="col-sm-2 col-form-label">Potassium Content of Soil</label>
+   <div class="col-sm-10">
+    <input readonly type="number" step="0.01" name="k" class="form-control" id="k">
+   </div>
+  </div>
+  <div class="row mb-3 g-3">
+   <label for="ph" class="col-sm-2 col-form-label">PH of Soil</label>
+   <div class="col-sm-10">
+    <input readonly type="number" step="0.01" name="ph" class="form-control" id="ph">
+   </div>
+  </div>
+  <div class="row mb-3 g-3">
+   <label for="moisture" class="col-sm-2 col-form-label">Moisture Content of Soil</label>
+   <div class="col-sm-10">
+    <input readonly type="number" step="0.01" name="moisture" class="form-control" id="moisture">
+   </div>
+  </div>
+  <div class="row mb-3 g-3">
+   <label for="type" class="col-sm-2 col-form-label">Soil Type</label>
+   <div class="col-sm-10">
+    <input readonly type="text" class="form-control" id="type" name="type">
+    <!-- <select readonly class="form-select" id="type" name="type" aria-label="Default select example">
+     <option value="none">Select</option>
+     <option value="sandy">Sandy</option>
+     <option value="loamy">Loamy</option>
+     <option value="black">Black</option>
+     <option value="red">Red</option>
+     <option value="clayey">Clayey</option>
+    </select> -->
+   </div>
+  </div>
+  <!-- <div class="row mb-3 g-3">
+    <label for="cname" class="col-sm-2 col-form-label">Crop Name</label>
+    <div class="col-sm-10">
+      <select readonly class="form-select" id="cname" name="cname" aria-label="Default select example">
+       <option value="none">Select</option>
+       <option value="sandy">Sandy</option>
+       <option value="loamy">Loamy</option>
+       <option value="black">Black</option>
+       <option value="red">Red</option>
+       <option value="clayey">Clayey</option>
+      </select>
+    </div>
+  </div> -->
+  <br>
+  <!-- <div class="row mb-3 g-3">
+   <label for="pic" class="col-sm-2 col-form-label">Picture of the medicine</label>
+   <div class="col-sm-3">
+    <input type="file" onchange="show(this)" name="pic" class="form-control" id="pic">
+   </div>
+  </div>
+  <div class="mb-3" style="margin-top: -400px; margin-left: 850px;">
+   <img class="mx-5" src="" alt="" height="380px" width="380px" id="shw">
+  </div> -->
+  <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
+    <div class="card text-center" style="width: 14rem; float: left;">
+      <img src="./images/img-crop.jpg" class="card-img-top p-1 rounded" alt="...">
+      <div class="card-body">
+        <!-- <h5 class="card-title">Crop Recommendation</h5> -->
+        <input type="submit" value="Crop Recommendation">
+      </div>
+    </div>
+    <!-- <div class="card text-center" style="width: 14rem; float: left;">
+      <img height="170" src="./images/img-Fertilizers.jpg" class="card-img-top p-1 rounded" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Fertilizer Recommendation</h5>
+        <input type="submit" value="Fertilizer Recommendation">
+      </div>
+    </div>
+    <div class="card text-center" style="width: 14rem; float: left;">
+      <img src="./images/img-yield.png" class="card-img-top p-1 rounded" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Yield Prediction</h5>
+        <input type="submit" value="Yield Prediction">
+      </div>
+    </div> -->
+  </div>
+  </form>
+</body>
+
+</html>

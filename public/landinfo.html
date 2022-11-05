@@ -22,6 +22,12 @@
      localStorage.setItem("rid",rid);
      window.location.href="newland.html";
    }
+   $scope.redir2service = function (rid) {
+      //alert(rid);
+      localStorage.removeItem("rid");
+      localStorage.setItem("rid", rid);
+      window.location.href = "services.html";
+    }
    $scope.doDelete = function(rid){
     document.getElementById("undo").style="visibility: visible;";
     localStorage.removeItem("rid");
@@ -111,7 +117,7 @@
    <th>pH of Soil</th>
    <th>Moisture of Soil</th>
    <th>Soil Type</th>
-   <th colspan="2">Operations</th>
+   <th colspan="3">Operations</th>
   </tr>
   <tr ng-repeat="obj in jsonArray">
     <td align="center">{{$index+1}}</td>
@@ -125,6 +131,7 @@
     <td align="center">{{obj.moisture}}</td>
     <td align="center">{{obj.type}}</td>
    <td align="center"><input type="button" value="Update" ng-click="redir(obj.rid);"></td>
+  <td align="center"><input type="button" value="Service" ng-click="redir2service(obj.rid);"></td>
    <td align="center"><input type="button" value="Delete" ng-click="doDelete(obj.rid);"></td>
   </tr>
  </table>
