@@ -1,4 +1,5 @@
 var express = require("express");
+var bodyParser = require('body-parser');
 var path = require("path");
 var app = express();
 var nodemailer = require('nodemailer');
@@ -258,3 +259,62 @@ app.get("/undoland",function(req,resp){
   }
  });
 });
+// const brain = require('brain.js');
+// const data = require('./Crop_recommendation.csv');
+
+// const network = new brain.recurrent.LSTM();
+// const trainingData = data.map(item => ({
+//   input: item.N, 
+//   input: item.P, 
+//   input: item.K, 
+//   input: item.temperature ,
+//   input: item.humidity, 
+//   input: item.ph, 
+//   input: item.rainfall,
+//   output: item.label
+// }));
+
+// network.train(trainingData, {
+//   iterations: 2000
+// });
+// var urlencodedParser = bodyParser.urlencoded({ extended: false })
+// app.set('view engine','ejs');
+
+
+// // app.get('/',function(req,res){
+// // 	// res.send('Hello world this is Express');
+// // 	res.render('index');
+// // });
+
+
+// app.get('/predict',function(req,res){
+// 	console.log(req.query);
+// res.render('index');
+// })
+
+// // Using Body Parser to Parse our data
+// app.post('/predict',urlencodedParser,function(req,res){
+// 	console.log(req.body);
+// 	const output = network.run(req.body.message);
+// 	console.log(`Label: ${output}`);
+
+// res.render('results',{mydata:req.body.message,resultdata:output});
+// })
+
+app.post("/crop-rec",function(req,resp){
+ console.log(req.body.n);
+  const { spawn } = require("child_process")
+  const py = spawn('python3',['croprec.py',req.body.n,req.body.p,req.body.k,26,80,req.body.ph,100])
+
+  py.stdout.on('data',(data)=>{
+  console.log(data.toString());
+})
+// const python = spawn('python', ['croprec.py',&quot;Kevin&quot;]);
+
+// python.stdout.on('data', (data)=&gt; {
+
+//         console.log(data.toString());
+       
+//     });
+});
+
