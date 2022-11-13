@@ -301,20 +301,30 @@ app.get("/undoland",function(req,resp){
 // res.render('results',{mydata:req.body.message,resultdata:output});
 // })
 
-app.post("/crop-rec",function(req,resp){
- console.log(req.body.n);
-  const { spawn } = require("child_process")
-  const py = spawn('python3',['croprec.py',req.body.n,req.body.p,req.body.k,26,80,req.body.ph,100])
+// app.post("/crop-rec",function(req,resp){
+// //  console.log(req.body.n);
+//   var  spawn  = require("child_process").spawn;
+//   var py = spawn('python3',['./croprecmain.py',104,18,30,26.603016,60.3,6.7,140.91])
+//   // console.log(py);
+//   py.stdout.on('data', function(data){
+//   console.log(data);
+// })
+// // const python = spawn('python', ['croprec.py',&quot;Kevin&quot;]);
 
-  py.stdout.on('data',(data)=>{
-  console.log(data.toString());
-})
-// const python = spawn('python', ['croprec.py',&quot;Kevin&quot;]);
+// // python.stdout.on('data', (data)=&gt; {
 
-// python.stdout.on('data', (data)=&gt; {
-
-//         console.log(data.toString());
+// //         console.log(data.toString());
        
-//     });
-});
-
+// //     });
+// });
+app.post("/crop-rec",callName);
+function callName(req,res)
+{
+  var spawn = require("child_process").spawn;
+    var process = spawn('python',["./croprecmain.py",
+                            req.body.n,req.body.p,req.body.k,26.603016,60.3,req.body.ph,140.91] );
+    process.stdout.on('data', function(data) {
+        res.send(data.toString());
+        // console.log(data.toString());
+    } )
+}
