@@ -259,72 +259,16 @@ app.get("/undoland",function(req,resp){
   }
  });
 });
-// const brain = require('brain.js');
-// const data = require('./Crop_recommendation.csv');
-
-// const network = new brain.recurrent.LSTM();
-// const trainingData = data.map(item => ({
-//   input: item.N, 
-//   input: item.P, 
-//   input: item.K, 
-//   input: item.temperature ,
-//   input: item.humidity, 
-//   input: item.ph, 
-//   input: item.rainfall,
-//   output: item.label
-// }));
-
-// network.train(trainingData, {
-//   iterations: 2000
-// });
-// var urlencodedParser = bodyParser.urlencoded({ extended: false })
-// app.set('view engine','ejs');
-
-
-// // app.get('/',function(req,res){
-// // 	// res.send('Hello world this is Express');
-// // 	res.render('index');
-// // });
-
-
-// app.get('/predict',function(req,res){
-// 	console.log(req.query);
-// res.render('index');
-// })
-
-// // Using Body Parser to Parse our data
-// app.post('/predict',urlencodedParser,function(req,res){
-// 	console.log(req.body);
-// 	const output = network.run(req.body.message);
-// 	console.log(`Label: ${output}`);
-
-// res.render('results',{mydata:req.body.message,resultdata:output});
-// })
-
-// app.post("/crop-rec",function(req,resp){
-// //  console.log(req.body.n);
-//   var  spawn  = require("child_process").spawn;
-//   var py = spawn('python3',['./croprecmain.py',104,18,30,26.603016,60.3,6.7,140.91])
-//   // console.log(py);
-//   py.stdout.on('data', function(data){
-//   console.log(data);
-// })
-// // const python = spawn('python', ['croprec.py',&quot;Kevin&quot;]);
-
-// // python.stdout.on('data', (data)=&gt; {
-
-// //         console.log(data.toString());
-       
-// //     });
-// });
-app.post("/crop-rec",callName);
-function callName(req,res)
+app.post("/crop-rec",function(req,res)
 {
+  console.log(req.body);
   var spawn = require("child_process").spawn;
     var process = spawn('python',["./croprecmain.py",
-                            req.body.n,req.body.p,req.body.k,26.603016,60.3,req.body.ph,140.91] );
+                            req.query.n,req.query.p,req.query.k,req.query.temp,req.query.hum,req.query.ph,req.query.rainfall] );
+    // var process = spawn('python',["./croprecmain.py",
+    //                         req.body.n,req.body.p,req.body.k,req.body.temperature,req.body.humidity,req.body.ph,req.body.rainfall] );
     process.stdout.on('data', function(data) {
-        res.send(data.toString());
-        // console.log(data.toString());
+        // res.send(data.toString());
+        console.log(data.toString());
     } )
-}
+});
