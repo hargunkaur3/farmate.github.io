@@ -259,16 +259,17 @@ app.get("/undoland",function(req,resp){
   }
  });
 });
-app.post("/crop-rec",function(req,res)
+app.post("/crop-rec",recommendCrop);
+function recommendCrop(req,res)
 {
-  console.log(req.body);
+  // console.log(req.query);
   var spawn = require("child_process").spawn;
     var process = spawn('python',["./croprecmain.py",
                             req.query.n,req.query.p,req.query.k,req.query.temp,req.query.hum,req.query.ph,req.query.rainfall] );
     // var process = spawn('python',["./croprecmain.py",
     //                         req.body.n,req.body.p,req.body.k,req.body.temperature,req.body.humidity,req.body.ph,req.body.rainfall] );
     process.stdout.on('data', function(data) {
-        // res.send(data.toString());
-        console.log(data.toString());
+        res.send(data.toString());
+        // console.log(data.toString());
     } )
-});
+}

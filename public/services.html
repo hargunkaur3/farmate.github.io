@@ -70,33 +70,42 @@
     }
     function croprec()
     {
-        var n = document.getElementById("#n").val();
-        var p= document.getElementById("#p").val();
-        var k = document.getElementById("#k").val();
-        var temp = document.getElementById("#temperature").val();
-        var hum = document.getElementById("#humidity").val();
-        var ph = document.getElementById("#ph").val();
-        var rain = document.getElementById("#rainfall").val();
+        alert("Hi");
+        // var n = document.getElementById("n").val();
+        // var p= document.getElementById("p").val();
+        // var k = document.getElementById("k").val();
+        // var temp = document.getElementById("temperature").val();
+        // var hum = document.getElementById("humidity").val();
+        // var ph = document.getElementById("ph").val();
+        // var rain = document.getElementById("rainfall").val();
+        var n = $("#n").val();
+        var p = $("#p").val();
+        var k = $("#k").val();
+        var temp = $("#temperature").val();
+        var hum = $("#humidity").val();
+        var ph = $("#ph").val();
+        var rain = $("#rainfall").val();
         var url = "/crop-rec?n=" + n +"&p="+ p +"&k="+ k +"&temp="+ temp +"&hum="+ hum +"&ph="+ ph +"&rainfall="+ rain;
         alert(url);
           $.post(url, function (res) {
+            alert(res);
             if (res.length == 0) {
-              alert(0);
+              alert("hello");
             }
             else {
               alert(res);
             }
           });
-        alert("Hi");
+          alert("Hi");
     }
     // $("#croprec").click(function () {
-    //     var n = document.getElementById("#n").val();
-    //     var p= document.getElementById("#p").val();
-    //     var k = document.getElementById("#k").val();
-    //     var temp = document.getElementById("#temperature").val();
-    //     var hum = document.getElementById("#humidity").val();
-    //     var ph = document.getElementById("#ph").val();
-    //     var rain = document.getElementById("#rainfall").val();
+    //     var n = document.getElementById("n").val();
+    //     var p= document.getElementById("p").val();
+    //     var k = document.getElementById("k").val();
+    //     var temp = document.getElementById("temperature").val();
+    //     var hum = document.getElementById("humidity").val();
+    //     var ph = document.getElementById("ph").val();
+    //     var rain = document.getElementById("rainfall").val();
     //     var url = "/crop-rec?n=" + n +"&p="+ p +"&k="+ k +"&temp="+ temp +"&hum="+ hum +"&ph="+ ph +"&rainfall="+ rain;
     //     alert(url);
     //       // $.post(url, function (resp) {
