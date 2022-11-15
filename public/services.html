@@ -58,26 +58,27 @@
             $("#moisture").val(resp[0].moisture);
             // $("#picture").val(resp[0].picname);
             // $("#shw").attr("src","/uploads/"+resp[0].picname);
+            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + $("#loc").val() + '&appid=02e8f4d0264227acfd2257c0ef551b93')
+            .then(response => response.json())
+            .then(data => console.log(data))
+            // {
+            //     $("#temperature").val(data['main']['temp']);
+            //     $("#humidity").val(data['main']['humidity']);
+            //     $("#rainfall").val(data['rain']);
+            //   })
+              .catch(err => alert("Wrong city name!"));
           }
         });
-        $("#save").css("visibility", "hidden");
-        $("#update").css("visibility", "visible");
+        // $("#save").css("visibility", "hidden");
+        // $("#update").css("visibility", "visible");
       }
-      else {
-        $("#save").css("visibility", "visible");
-        $("#update").css("visibility", "hidden");
-      }
+      // else {
+      //   // $("#save").css("visibility", "visible");
+      //   // $("#update").css("visibility", "hidden");
+      // }
     }
-    function croprec()
+    async function croprec()
     {
-        alert("Hi");
-        // var n = document.getElementById("n").val();
-        // var p= document.getElementById("p").val();
-        // var k = document.getElementById("k").val();
-        // var temp = document.getElementById("temperature").val();
-        // var hum = document.getElementById("humidity").val();
-        // var ph = document.getElementById("ph").val();
-        // var rain = document.getElementById("rainfall").val();
         var n = $("#n").val();
         var p = $("#p").val();
         var k = $("#k").val();
@@ -86,37 +87,18 @@
         var ph = $("#ph").val();
         var rain = $("#rainfall").val();
         var url = "/crop-rec?n=" + n +"&p="+ p +"&k="+ k +"&temp="+ temp +"&hum="+ hum +"&ph="+ ph +"&rainfall="+ rain;
-        alert(url);
-          $.post(url, function (res) {
-            alert(res);
+        // alert(url);
+        const res = await $.post(url, function (res) {
             if (res.length == 0) {
-              alert("hello");
+              // alert("hello");
             }
             else {
-              alert(res);
+              // alert(res);
+              $("#rec").html(res);
             }
           });
-          alert("Hi");
+          // alert("Hi");
     }
-    // $("#croprec").click(function () {
-    //     var n = document.getElementById("n").val();
-    //     var p= document.getElementById("p").val();
-    //     var k = document.getElementById("k").val();
-    //     var temp = document.getElementById("temperature").val();
-    //     var hum = document.getElementById("humidity").val();
-    //     var ph = document.getElementById("ph").val();
-    //     var rain = document.getElementById("rainfall").val();
-    //     var url = "/crop-rec?n=" + n +"&p="+ p +"&k="+ k +"&temp="+ temp +"&hum="+ hum +"&ph="+ ph +"&rainfall="+ rain;
-    //     alert(url);
-    //       // $.post(url, function (resp) {
-    //       //   if (resp.length == 0) {
-    //       //   }
-    //       //   else {
-    //       //     alert(resp);
-    //       //   }
-    //       // });
-    //     alert("Hi");
-    //   });
  </script>
 </head>
 
@@ -128,7 +110,7 @@
  </a>
  <h1><input type="text" class="form-control" id="landname" name="landname"></h1>
  <hr>
-<form class="mx-5" method="POST" enctype="multipart/form-data">
+<!-- <form class="mx-5" method="POST" enctype="multipart/form-data"> -->
   <div class="row mb-3 g-3">
    <label for="email" class="col-sm-2 col-form-label">Email</label>
    <div class="col-sm-10">
@@ -136,7 +118,7 @@
    </div>
   </div>
   <div class="row mb-3 g-3">
-   <label for="loc" class="col-sm-2 col-form-label">Location</label>
+   <label for="loc" class="col-sm-2 col-form-label">City</label>
    <div class="col-sm-10">
     <input type="text" class="form-control" name="loc" id="loc">
    </div>
@@ -248,6 +230,7 @@
         <!-- <input type="submit" value="Crop Recommendation"> -->
         <!-- <button type="submit" formaction="/crop-rec" id="croprec" class="btn btn-primary me-3">Crop Recommendation</button> -->
         <button onclick="croprec();" class="btn btn-primary me-3">Crop Recommendation</button>
+        <span id="rec">&nbsp;</span>
       </div>
     </div>
     <!-- <div class="card text-center" style="width: 14rem; float: left;">
@@ -265,7 +248,7 @@
       </div>
     </div> -->
   </div>
-  </form>
+  <!-- </form> -->
 </body>
 
 </html>
