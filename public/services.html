@@ -58,14 +58,14 @@
             $("#moisture").val(resp[0].moisture);
             // $("#picture").val(resp[0].picname);
             // $("#shw").attr("src","/uploads/"+resp[0].picname);
-            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + $("#loc").val() + '&appid=02e8f4d0264227acfd2257c0ef551b93')
+            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + $("#loc").val() + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
             .then(response => response.json())
-            .then(data => console.log(data))
-            // {
-            //     $("#temperature").val(data['main']['temp']);
-            //     $("#humidity").val(data['main']['humidity']);
-            //     $("#rainfall").val(data['rain']);
-            //   })
+            .then(data => 
+            {
+                $("#temperature").val(data['main']['temp']);
+                $("#humidity").val(data['main']['humidity']);
+                // $("#rainfall").val(data['rain']['1h']);
+              })
               .catch(err => alert("Wrong city name!"));
           }
         });
