@@ -273,3 +273,17 @@ function recommendCrop(req,res)
         // console.log(data.toString());
     } )
 }
+app.post("/fert-rec",recommendFert);
+function recommendFert(req,res)
+{
+  console.log(req.query);
+  var spawn = require("child_process").spawn;
+    var process = spawn('python',["./fertreccmain.py",
+                            req.query.temp,req.query.hum,req.query.mois,req.query.type,req.query.ctype,req.query.n,req.query.k,req.query.p] );
+    // var process = spawn('python',["./croprecmain.py",
+    //                         req.body.n,req.body.p,req.body.k,req.body.temperature,req.body.humidity,req.body.ph,req.body.rainfall] );
+    process.stdout.on('data', function(data) {
+        res.send(data.toString());
+        // console.log(data.toString());
+    } )
+}

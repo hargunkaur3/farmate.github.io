@@ -99,6 +99,28 @@
           });
           // alert("Hi");
     }
+    async function fertrec() {
+        var n = $("#n").val();
+        var p = $("#p").val();
+        var k = $("#k").val();
+        var temp = $("#temperature").val();
+        var hum = $("#humidity").val();
+        var mois = $("#moisture").val();
+        var ctype = $("#ctype").val();
+        var type = $("#type").val();
+        var url = "/fert-rec?temp=" + temp + "&hum=" + hum + "&mois=" + mois + "&type=" + type + "&ctype=" + ctype + "&n=" + n + "&k=" + k + "&p=" + p;
+        // alert(url);
+        const res = await $.post(url, function (res) {
+          if (res.length == 0) {
+            // alert("hello");
+          }
+          else {
+            // alert(res);
+            $("#fer").html(res);
+          }
+        });
+        // alert("Hi");
+      }
  </script>
 </head>
 
@@ -199,19 +221,25 @@
     </select>
    </div>
   </div>
-  <!-- <div class="row mb-3 g-3">
-    <label for="cname" class="col-sm-2 col-form-label">Crop Name</label>
+  <div class="row mb-3 g-3">
+    <label for="ctype" class="col-sm-2 col-form-label">Crop Name</label>
     <div class="col-sm-10">
-      <select readonly class="form-select" id="cname" name="cname" aria-label="Default select example">
+      <select readonly class="form-select" id="ctype" name="ctype" aria-label="Default select example">
        <option value="none">Select</option>
-       <option value="sandy">Sandy</option>
-       <option value="loamy">Loamy</option>
-       <option value="black">Black</option>
-       <option value="red">Red</option>
-       <option value="clayey">Clayey</option>
+       <option value="Maize">Maize</option>
+       <option value="Sugarcane">Sugarcane</option>
+       <option value="Cotton">Cotton</option>
+       <option value="Tobacco">Tobacco</option>
+       <option value="Paddy">Paddy</option>
+      <option value="Barley">Barley</option>
+      <option value="Wheat">Wheat</option>
+      <option value="Millets">Millets</option>
+      <option value="Oilseeds">Oil seeds</option>
+      <option value="Pulses">Pulses</option>
+      <option value="GroundNuts">Ground Nuts</option>
       </select>
     </div>
-  </div> -->
+  </div>
   <br>
   <!-- <div class="row mb-3 g-3">
    <label for="pic" class="col-sm-2 col-form-label">Picture of the medicine</label>
@@ -233,14 +261,16 @@
         <span id="rec">&nbsp;</span>
       </div>
     </div>
-    <!-- <div class="card text-center" style="width: 14rem; float: left;">
+    <div class="card text-center" style="width: 14rem; float: left;">
       <img height="170" src="./images/img-Fertilizers.jpg" class="card-img-top p-1 rounded" alt="...">
       <div class="card-body">
-        <h5 class="card-title">Fertilizer Recommendation</h5>
-        <input type="submit" value="Fertilizer Recommendation">
+        <!-- <h5 class="card-title">Fertilizer Recommendation</h5>
+        <input type="submit" value="Fertilizer Recommendation"> -->
+        <button onclick="fertrec();" class="btn btn-primary me-3">Fertilizer Recommendation</button>
+        <span id="fer">&nbsp;</span>
       </div>
     </div>
-    <div class="card text-center" style="width: 14rem; float: left;">
+    <!-- <div class="card text-center" style="width: 14rem; float: left;">
       <img src="./images/img-yield.png" class="card-img-top p-1 rounded" alt="...">
       <div class="card-body">
         <h5 class="card-title">Yield Prediction</h5>

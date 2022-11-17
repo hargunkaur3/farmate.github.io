@@ -38,7 +38,8 @@ def fertrec():
     # features = df[['temperature', 'humidity', 'ph', 'rainfall']]
     labels = df['Fertilizer Name']
     from sklearn.model_selection import train_test_split
-    Xtrain, Xtest, Ytrain, Ytest = train_test_split(features, target, test_size=0.2, random_state=2)
+    Xtrain, Xtest, Ytrain, Ytest = train_test_split(
+        features, target, test_size=0.2, random_state=2)
     from sklearn.ensemble import RandomForestClassifier
 
     RF = RandomForestClassifier(n_estimators=20, random_state=0)
@@ -47,42 +48,42 @@ def fertrec():
     hum = sys.argv[2]
     mois = sys.argv[3]
     soiltype = sys.argv[4]
-    if soiltype=='Sandy':
-        soiltype=4
-    elif soiltype=='Loamy':
-        soiltype=2
-    elif soiltype=='Black':
-        soiltype=0
-    elif soiltype=='Red':
-        soiltype=3
-    elif soiltype=='Clayey':
-        soiltype=1
+    if soiltype == 'sandy':
+        soiltype = 4
+    elif soiltype == 'loamy':
+        soiltype = 2
+    elif soiltype == 'black':
+        soiltype = 0
+    elif soiltype == 'red':
+        soiltype = 3
+    elif soiltype == 'clayey':
+        soiltype = 1
     croptype = sys.argv[5]
     N = sys.argv[6]
     Potash = sys.argv[7]
     phos = sys.argv[8]
-    if croptype=='Maize':
-        croptype=3
-    elif croptype=='Sugarcane':
-        croptype=8
-    elif croptype=='Cotton':
-        croptype=1
-    elif croptype=='Tobacco':
-        croptype=9
-    elif croptype=='Paddy':
-        croptype=6
-    elif croptype=='Barley':
-        soiltype=0
-    elif croptype=='Wheat':
-        croptype=10
-    elif croptype=='Millets':
-        croptype=4
-    elif croptype=='Oil seeds':
-        croptype=5
-    elif croptype=='Pulses':
-        croptype=7
-    elif croptype=='Ground Nuts':
-        croptype=2
+    if croptype == 'Maize':
+        croptype = 3
+    elif croptype == 'Sugarcane':
+        croptype = 8
+    elif croptype == 'Cotton':
+        croptype = 1
+    elif croptype == 'Tobacco':
+        croptype = 9
+    elif croptype == 'Paddy':
+        croptype = 6
+    elif croptype == 'Barley':
+        soiltype = 0
+    elif croptype == 'Wheat':
+        croptype = 10
+    elif croptype == 'Millets':
+        croptype = 4
+    elif croptype == 'Oilseeds':
+        croptype = 5
+    elif croptype == 'Pulses':
+        croptype = 7
+    elif croptype == 'GroundNuts':
+        croptype = 2
 
     data = np.array([[temp, hum, mois, soiltype, croptype, N, Potash, phos]])
     prediction = RF.predict(data)
