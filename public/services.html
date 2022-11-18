@@ -65,6 +65,15 @@
                 $("#temperature").val(data['main']['temp']);
                 $("#humidity").val(data['main']['humidity']);
                 // $("#rainfall").val(data['rain']['1h']);
+                // fetch('https://history.openweathermap.org/data/2.5/aggregated/year?lat=' + data['coord']['lat'] + '&lon=' + data['coord']['lon'] + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
+                // .then(response => response.json())
+                // .then(data => console.log(data))
+                // // {
+                // //     $("#temperature").val(data['main']['temp']);
+                // //     $("#humidity").val(data['main']['humidity']);
+                // //     // $("#rainfall").val(data['rain']['1h']);
+                // //   })
+                // .catch(err => alert("Wrong city name!"));
               })
               .catch(err => alert("Wrong city name!"));
           }
@@ -108,18 +117,24 @@
         var mois = $("#moisture").val();
         var ctype = $("#ctype").val();
         var type = $("#type").val();
-        var url = "/fert-rec?temp=" + temp + "&hum=" + hum + "&mois=" + mois + "&type=" + type + "&ctype=" + ctype + "&n=" + n + "&k=" + k + "&p=" + p;
-        // alert(url);
-        const res = await $.post(url, function (res) {
-          if (res.length == 0) {
-            // alert("hello");
-          }
-          else {
-            // alert(res);
-            $("#fer").html(res);
-          }
-        });
-        // alert("Hi");
+        if(ctype=="none")
+        {
+          $("#emptyc").html("Please select the crop name!").css("color", "red");
+        }
+        else{
+          var url = "/fert-rec?temp=" + temp + "&hum=" + hum + "&mois=" + mois + "&type=" + type + "&ctype=" + ctype + "&n=" + n + "&k=" + k + "&p=" + p;
+          // alert(url);
+          const res = await $.post(url, function (res) {
+            if (res.length == 0) {
+              // alert("hello");
+            }
+            else {
+              // alert(res);
+              $("#fer").html(res);
+            }
+          });
+          // alert("Hi");
+        }
       }
  </script>
 </head>
@@ -238,6 +253,7 @@
       <option value="Pulses">Pulses</option>
       <option value="GroundNuts">Ground Nuts</option>
       </select>
+      <span id="emptyc">&nbsp;</span>
     </div>
   </div>
   <br>
