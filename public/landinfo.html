@@ -22,11 +22,23 @@
      localStorage.setItem("rid",rid);
      window.location.href="newland.html";
    }
-   $scope.redir2service = function (rid) {
+   $scope.redir2crop = function (rid) {
       //alert(rid);
       localStorage.removeItem("rid");
       localStorage.setItem("rid", rid);
-      window.location.href = "services.html";
+      window.location.href = "crop.html";
+    }
+    $scope.redir2fert = function (rid) {
+      //alert(rid);
+      localStorage.removeItem("rid");
+      localStorage.setItem("rid", rid);
+      window.location.href = "fert.html";
+    }
+    $scope.redir2yield = function (rid) {
+      //alert(rid);
+      localStorage.removeItem("rid");
+      localStorage.setItem("rid", rid);
+      window.location.href = "yield.html";
     }
    $scope.doDelete = function(rid){
     document.getElementById("undo").style="visibility: visible;";
@@ -100,8 +112,8 @@
  <h1>My Lands</h1>
  <hr>
  <div class="row mb-3">
-  <label for="email" class="col-sm-2 col-form-label">Email</label>
-  <div class="col-sm-6">
+  <label for="email" class="col-sm-1 col-form-label"><center>Email</center></label>
+  <div class="col-sm-2">
    <input readonly type="email" class="form-control" ng-model="email" ng-change="fetch();" id="email">
   </div>
  </div>
@@ -111,27 +123,29 @@
    <th>Name of the Land</th>
    <th>City</th>
    <th>Area (in sq. yards)</th>
-   <th>Nitrogen Content</th>
+   <!-- <th>Nitrogen Content</th>
    <th>Phosphorous Content</th>
    <th>Potassium Content</th>
    <th>pH of Soil</th>
    <th>Moisture of Soil</th>
-   <th>Soil Type</th>
-   <th colspan="3">Operations</th>
+   <th>Soil Type</th> -->
+   <th colspan="5"><center>Operations</center></th>
   </tr>
   <tr ng-repeat="obj in jsonArray">
     <td align="center">{{$index+1}}</td>
     <td align="center">{{obj.landname}}</td>
     <td align="center">{{obj.loc}}</td>
     <td align="center">{{obj.area}}</td>
-    <td align="center">{{obj.n}}</td>
+    <!-- <td align="center">{{obj.n}}</td>
     <td align="center">{{obj.p}}</td>
     <td align="center">{{obj.k}}</td>
     <td align="center">{{obj.ph}}</td>
     <td align="center">{{obj.moisture}}</td>
-    <td align="center">{{obj.type}}</td>
+    <td align="center">{{obj.type}}</td> -->
    <td align="center"><input type="button" value="Update" ng-click="redir(obj.rid);"></td>
-  <td align="center"><input type="button" value="Service" ng-click="redir2service(obj.rid);"></td>
+  <td align="center"><input type="button" value="Recommend Crop" ng-click="redir2crop(obj.rid);"></td>
+  <td align="center"><input type="button" value="Recommend Fertilizer" ng-click="redir2fert(obj.rid);"></td>
+  <td align="center"><input type="button" value="Predict Yield" ng-click="redir2yield(obj.rid);"></td>
    <td align="center"><input type="button" value="Delete" ng-click="doDelete(obj.rid);"></td>
   </tr>
  </table>
