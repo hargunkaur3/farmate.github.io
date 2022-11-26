@@ -126,13 +126,73 @@
     <input type="email" class="form-control" name="email" id="email">
    </div>
   </div>
-  <hr>
-  <div class="row mb-3 g-3">
+  <hr><center>
+  <div class="card" style="width: 50rem;">
+    <img src="./images/img-crop.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Crop Recommendation</h5>
+      <p class="card-text">
+        <div class="row mb-3 g-3">
+          <label for="loc" class="col-sm-4 col-form-label">City</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="loc" id="loc">
+          </div>
+        </div>
+        <input type="text" hidden name="rid" id="rid">
+        <!-- <input type="text" hidden name="picture" id="picture"> -->
+        <div class="row mb-3 g-3">
+          <label for="n" class="col-sm-4 col-form-label">Nitrogen Content of Soil</label>
+          <div class="col-sm-8">
+            <input type="number" step="0.01" class="form-control" id="n" name="n">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <label for="p" class="col-sm-4 col-form-label">Phosphorous Content of Soil</label>
+          <div class="col-sm-8">
+            <input type="number" step="0.01" class="form-control" id="p" name="p">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <label for="k" class="col-sm-4 col-form-label">Potassium Content of Soil</label>
+          <div class="col-sm-8">
+            <input type="number" step="0.01" name="k" class="form-control" id="k">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <label for="ph" class="col-sm-4 col-form-label">PH of Soil</label>
+          <div class="col-sm-8">
+            <input type="number" step="0.01" name="ph" class="form-control" id="ph">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <label for="temperature" class="col-sm-4 col-form-label">Temperature</label>
+          <div class="col-sm-8">
+            <input type="number" step="0.01" name="temperature" class="form-control" id="temperature">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <label for="humidity" class="col-sm-4 col-form-label">Humidity</label>
+          <div class="col-sm-8">
+            <input type="number" step="0.01" name="humidity" class="form-control" id="humidity">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <label for="rainfall" class="col-sm-4 col-form-label">Rainfall (in mm)</label>
+          <div class="col-sm-8">
+            <input type="number" step="0.01" name="rainfall" class="form-control" id="rainfall">
+          </div>
+        </div>
+      </p>
+      <button onclick="croprec();" class="btn btn-primary me-3">Crop Recommendation</button>
+      <div style="margin-top: 10px;"><span id="rec" style="font-family: 'Times New Roman', Times, serif;font-weight: 300;font-size: large;">&nbsp;</span></div>
+    </div>
+  </div></center>
+  <!-- <div class="row mb-3 g-3">
    <label for="loc" class="col-sm-2 col-form-label">City</label>
-   <div class="col-sm-10">
+   <div class="col-sm-2">
     <input type="text" class="form-control" name="loc" id="loc">
    </div>
-  </div>
+  </div> -->
   <!-- <div class="row mb-3 g-3">
    <label for="landname" class="col-sm-2 col-form-label">Land Name</label>
    <div class="col-sm-10">
@@ -145,56 +205,14 @@
     <input type="number" class="form-control" id="area" name="area">
    </div>
   </div> -->
-  <input type="text" hidden name="rid" id="rid">
-  <!-- <input type="text" hidden name="picture" id="picture"> -->
-  <div class="row mb-3 g-3">
-   <label for="n" class="col-sm-2 col-form-label">Nitrogen Content of Soil</label>
-   <div class="col-sm-10">
-    <input type="number" step="0.01" class="form-control" id="n" name="n">
-   </div>
-  </div>
-  <div class="row mb-3 g-3">
-   <label for="p" class="col-sm-2 col-form-label">Phosphorous Content of Soil</label>
-   <div class="col-sm-10">
-    <input type="number" step="0.01" class="form-control" id="p" name="p">
-   </div>
-  </div>
-  <div class="row mb-3 g-3">
-   <label for="k" class="col-sm-2 col-form-label">Potassium Content of Soil</label>
-   <div class="col-sm-10">
-    <input type="number" step="0.01" name="k" class="form-control" id="k">
-   </div>
-  </div>
-  <div class="row mb-3 g-3">
-   <label for="ph" class="col-sm-2 col-form-label">PH of Soil</label>
-   <div class="col-sm-10">
-    <input type="number" step="0.01" name="ph" class="form-control" id="ph">
-   </div>
-  </div>
+  
   <!-- <div class="row mb-3 g-3">
    <label for="moisture" class="col-sm-2 col-form-label">Moisture Content of Soil</label>
    <div class="col-sm-10">
     <input type="number" step="0.01" name="moisture" class="form-control" id="moisture">
    </div>
   </div> -->
-  <div class="row mb-3 g-3">
-    <label for="temperature" class="col-sm-2 col-form-label">Temperature</label>
-    <div class="col-sm-10">
-      <input type="number" step="0.01" name="temperature" class="form-control" id="temperature">
-    </div>
-  </div>
-  <div class="row mb-3 g-3">
-    <label for="humidity" class="col-sm-2 col-form-label">Humidity</label>
-    <div class="col-sm-10">
-      <input type="number" step="0.01" name="humidity" class="form-control" id="humidity">
-    </div>
-  </div>
-  <div class="row mb-3 g-3">
-    <label for="rainfall" class="col-sm-2 col-form-label">Rainfall</label>
-    <div class="col-sm-10">
-      <input type="number" step="0.01" name="rainfall" class="form-control" id="rainfall">
-    </div>
-  </div>
+  
   <!-- <div class="row mb-3 g-3">
    <label for="type" class="col-sm-2 col-form-label">Soil Type</label>
    <div class="col-sm-10">
@@ -229,7 +247,6 @@
       <span id="emptyc">&nbsp;</span>
     </div>
   </div> -->
-  <br>
   <!-- <div class="row mb-3 g-3">
    <label for="pic" class="col-sm-2 col-form-label">Picture of the medicine</label>
    <div class="col-sm-3">
@@ -239,21 +256,17 @@
   <div class="mb-3" style="margin-top: -400px; margin-left: 850px;">
    <img class="mx-5" src="" alt="" height="380px" width="380px" id="shw">
   </div> -->
-  <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
+  <!-- <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
     <div class="card text-center" style="width: 14rem; float: left;">
       <img src="./images/img-crop.jpg" class="card-img-top p-1 rounded" alt="...">
       <div class="card-body">
-        <!-- <h5 class="card-title">Crop Recommendation</h5> -->
+         <h5 class="card-title">Crop Recommendation</h5> -->
         <!-- <input type="submit" value="Crop Recommendation"> -->
-        <!-- <button type="submit" formaction="/crop-rec" id="croprec" class="btn btn-primary me-3">Crop Recommendation</button> -->
-
-
-
-
+        <!-- <button type="submit" formaction="/crop-rec" id="croprec" class="btn btn-primary me-3">Crop Recommendation</button> 
         <button onclick="croprec();" class="btn btn-primary me-3">Crop Recommendation</button>
         <span id="rec">&nbsp;</span>
       </div>
-    </div>
+    </div> -->
     <!-- <div class="card text-center" style="width: 14rem; float: left;">
       <img height="170" src="./images/img-Fertilizers.jpg" class="card-img-top p-1 rounded" alt="...">
       <div class="card-body">
@@ -270,7 +283,7 @@
         <input type="submit" value="Yield Prediction">
       </div>
     </div> -->
-  </div>
+  <!-- </div> -->
   <!-- </form> -->
 </body>
 

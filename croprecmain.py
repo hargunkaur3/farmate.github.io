@@ -43,7 +43,7 @@ def croprec():
     rainfall = sys.argv[7]
     data = np.array([[N, P, K, temp, hum, ph, rainfall]])
     prediction = RF.predict(data)
-    print(prediction)
+    print("The best crop to plant is "+prediction[3:-1])
     pickle.dump(sv, open('croprec.pkl', 'wb'))
 
 
