@@ -10,9 +10,9 @@
  <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
  <title>Document</title>
  <style>
-  body {
-   background-color: #f0e9fa;
-  }
+  body{
+      background-image: linear-gradient(135deg, #264653 10%, #14213d 100%);
+    }
 
   #link {
    text-decoration: none;
@@ -122,6 +122,7 @@
           $("#emptyc").html("Please select the crop name!").css("color", "red");
         }
         else{
+          $("#emptyc").html("");
           var url = "/fert-rec?temp=" + temp + "&hum=" + hum + "&mois=" + mois + "&type=" + type + "&ctype=" + ctype + "&n=" + n + "&k=" + k + "&p=" + p;
           // alert(url);
           const res = await $.post(url, function (res) {
@@ -149,8 +150,8 @@
  <!-- <hr> -->
  <!-- <form class="mx-5" method="POST" enctype="multipart/form-data"> -->
  <div class="row mb-3 g-3">
-  <label for="email" class="col-sm-2 col-form-label">Email</label>
-  <div class="col-sm-10">
+  <label for="email" class="col-sm-2 col-form-label" style="color: white;">Email</label>
+  <div class="col-sm-4">
    <input type="email" class="form-control" name="email" id="email">
   </div>
  </div>
@@ -241,8 +242,8 @@
       </div>
       </p>
       <button onclick="fertrec();" class="btn btn-primary me-3">Fertilizer Recommendation</button>
-      <div style="margin-top: 10px;"><span id="rec"
-          style="font-family: 'Times New Roman', Times, serif;font-weight: 300;font-size: large;">&nbsp;</span></div>
+      <div style="margin-top: 10px;"><span id="fer"
+          style="font-family: 'Times New Roman', Times, serif;font-weight: 500;font-size: large;">&nbsp;</span></div>
     </div>
   </div>
 </center>

@@ -276,7 +276,7 @@ function recommendCrop(req,res)
 app.post("/fert-rec",recommendFert);
 function recommendFert(req,res)
 {
-  console.log(req.query);
+  // console.log(req.query);
   var spawn = require("child_process").spawn;
     var process = spawn('python',["./fertreccmain.py",
                             req.query.temp,req.query.hum,req.query.mois,req.query.type,req.query.ctype,req.query.n,req.query.k,req.query.p] );
