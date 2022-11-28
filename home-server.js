@@ -287,3 +287,17 @@ function recommendFert(req,res)
         // console.log(data.toString());
     } )
 }
+app.post("/yield-pre",predictYield);
+function predictYield(req,res)
+{
+  // console.log(req.query);
+  var spawn = require("child_process").spawn;
+    var process = spawn('python',["./yieldmain.py",
+                            req.query.season,req.query.crop,req.query.area] );
+    // var process = spawn('python',["./croprecmain.py",
+    //                         req.body.n,req.body.p,req.body.k,req.body.temperature,req.body.humidity,req.body.ph,req.body.rainfall] );
+    process.stdout.on('data', function(data) {
+        res.send(data.toString());
+        // console.log(data.toString());
+    } )
+}

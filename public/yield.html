@@ -2,39 +2,39 @@
 <html lang="en">
 
 <head>
- <meta charset="UTF-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" href="css/bootstrap.min.css">
- <script src="js/jquery-1.8.2.min.js"></script>
- <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
- <title>Document</title>
- <style>
-  body {
-   background-color: #f0e9fa;
-  }
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery-1.8.2.min.js"></script>
+  <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <title>Document</title>
+  <style>
+    body {
+      background-image: linear-gradient(135deg, #264653 10%, #14213d 100%);
+    }
 
-  #link {
-   text-decoration: none;
-  }
+    #link {
+      text-decoration: none;
+    }
 
-  #mybutton {
-   color: azure;
-   background-color: darkslategray;
-   float: right;
-   height: 50px;
-   width: 170px;
-   border-radius: 30px;
-   padding: 10px 10px 10px 17px;
-  }
+    #mybutton {
+      color: azure;
+      background-color: darkslategray;
+      float: right;
+      height: 50px;
+      width: 170px;
+      border-radius: 30px;
+      padding: 10px 10px 10px 17px;
+    }
 
-  #mybutton:hover {
-   color: darkslategray;
-   background-color: azure;
-  }
- </style>
- <script>
-  function loading() {
+    #mybutton:hover {
+      color: darkslategray;
+      background-color: azure;
+    }
+  </style>
+  <script>
+    function loading() {
       var em = localStorage.getItem("email");
       document.getElementById("email").value = em;
       if (localStorage.getItem("rid")) {
@@ -47,35 +47,34 @@
           else {
             //alert(JSON.stringify(resp));
             $("#rid").val(localStorage.getItem("rid"));
-            $("#loc").val(resp[0].loc);
-            $("#landname").val(resp[0].landname);
-            $("#area").val(resp[0].area);
-            $("#n").val(resp[0].n);
-            $("#p").val(resp[0].p);
-            $("#k").val(resp[0].k);
-            $("#ph").val(resp[0].ph);
-            $("#type").val(resp[0].type);
-            $("#moisture").val(resp[0].moisture);
+            // $("#loc").val(resp[0].loc);
+            // $("#landname").val(resp[0].landname);
+            // $("#area").val(resp[0].area);
+            // $("#n").val(resp[0].n);
+            // $("#p").val(resp[0].p);
+            // $("#k").val(resp[0].k);
+            // $("#ph").val(resp[0].ph);
+            // $("#type").val(resp[0].type);
+            // $("#moisture").val(resp[0].moisture);
             // $("#picture").val(resp[0].picname);
             // $("#shw").attr("src","/uploads/"+resp[0].picname);
-            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + $("#loc").val() + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
-            .then(response => response.json())
-            .then(data => 
-            {
-                $("#temperature").val(data['main']['temp']);
-                $("#humidity").val(data['main']['humidity']);
-                // $("#rainfall").val(data['rain']['1h']);
-                // fetch('https://history.openweathermap.org/data/2.5/aggregated/year?lat=' + data['coord']['lat'] + '&lon=' + data['coord']['lon'] + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
-                // .then(response => response.json())
-                // .then(data => console.log(data))
-                // // {
-                // //     $("#temperature").val(data['main']['temp']);
-                // //     $("#humidity").val(data['main']['humidity']);
-                // //     // $("#rainfall").val(data['rain']['1h']);
-                // //   })
-                // .catch(err => alert("Wrong city name!"));
-              })
-              .catch(err => alert("Wrong city name!"));
+            // fetch('https://api.openweathermap.org/data/2.5/weather?q=' + $("#loc").val() + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
+            //   .then(response => response.json())
+            //   .then(data => {
+            //     $("#temperature").val(data['main']['temp']);
+            //     $("#humidity").val(data['main']['humidity']);
+            //     // $("#rainfall").val(data['rain']['1h']);
+            //     // fetch('https://history.openweathermap.org/data/2.5/aggregated/year?lat=' + data['coord']['lat'] + '&lon=' + data['coord']['lon'] + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
+            //     // .then(response => response.json())
+            //     // .then(data => console.log(data))
+            //     // // {
+            //     // //     $("#temperature").val(data['main']['temp']);
+            //     // //     $("#humidity").val(data['main']['humidity']);
+            //     // //     // $("#rainfall").val(data['rain']['1h']);
+            //     // //   })
+            //     // .catch(err => alert("Wrong city name!"));
+            //   })
+            //   .catch(err => alert("Wrong city name!"));
           }
         });
         // $("#save").css("visibility", "hidden");
@@ -86,178 +85,169 @@
       //   // $("#update").css("visibility", "hidden");
       // }
     }
-    async function croprec()
-    {
-        var n = $("#n").val();
-        var p = $("#p").val();
-        var k = $("#k").val();
-        var temp = $("#temperature").val();
-        var hum = $("#humidity").val();
-        var ph = $("#ph").val();
-        var rain = $("#rainfall").val();
-        var url = "/crop-rec?n=" + n +"&p="+ p +"&k="+ k +"&temp="+ temp +"&hum="+ hum +"&ph="+ ph +"&rainfall="+ rain;
-        // alert(url);
-        const res = await $.post(url, function (res) {
-            if (res.length == 0) {
-              // alert("hello");
-            }
-            else {
-              // alert(res);
-              $("#rec").html(res);
-            }
-          });
-          // alert("Hi");
+    async function yieldpre() {
+      var area = $("#area").val();
+      var season = $("#season").val();
+      var ctype = $("#ctype").val();
+      var url = "/yield-pre?season=" + season + "&crop=" + ctype + "&area=" + area ;
+      // alert(url);
+      const res = await $.post(url, function (res) {
+        if (res.length == 0) {
+          // alert("hello");
+        }
+        else {
+          // alert(res);
+          $("#rec").html(res);
+        }
+      });
+      // alert("Hi");
     }
-    async function fertrec() {
-        var n = $("#n").val();
-        var p = $("#p").val();
-        var k = $("#k").val();
-        var temp = $("#temperature").val();
-        var hum = $("#humidity").val();
-        var mois = $("#moisture").val();
-        var ctype = $("#ctype").val();
-        var type = $("#type").val();
-        if(ctype=="none")
-        {
-          $("#emptyc").html("Please select the crop name!").css("color", "red");
-        }
-        else{
-          var url = "/fert-rec?temp=" + temp + "&hum=" + hum + "&mois=" + mois + "&type=" + type + "&ctype=" + ctype + "&n=" + n + "&k=" + k + "&p=" + p;
-          // alert(url);
-          const res = await $.post(url, function (res) {
-            if (res.length == 0) {
-              // alert("hello");
-            }
-            else {
-              // alert(res);
-              $("#fer").html(res);
-            }
-          });
-          // alert("Hi");
-        }
-      }
- </script>
+  </script>
 </head>
 
 <body onload="loading();">
- <a id="link" href="landinfo.html">
-  <div id="mybutton">
-   Back to Land Info
+  <a id="link" href="landinfo.html">
+    <div style="margin-top: 15px;" id="mybutton">
+      Back to Land Info
+    </div>
+  </a>
+  <!-- <h1><input type="text" class="form-control" id="landname" name="landname"></h1> -->
+  <!-- <hr> -->
+  <!-- <form class="mx-5" method="POST" enctype="multipart/form-data"> -->
+  <div class="row mb-3 g-3">
+    <label for="email" class="col-sm-2 col-form-label" style="color: white;">Email</label>
+    <div class="col-sm-4">
+      <input type="email" class="form-control" name="email" id="email">
+    </div>
   </div>
- </a>
- <h1><input type="text" class="form-control" id="landname" name="landname"></h1>
- <hr>
- <!-- <form class="mx-5" method="POST" enctype="multipart/form-data"> -->
- <div class="row mb-3 g-3">
-  <label for="email" class="col-sm-2 col-form-label">Email</label>
-  <div class="col-sm-10">
-   <input type="email" class="form-control" name="email" id="email">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="loc" class="col-sm-2 col-form-label">City</label>
-  <div class="col-sm-10">
-   <input type="text" class="form-control" name="loc" id="loc">
-  </div>
- </div>
- <!-- <div class="row mb-3 g-3">
+  <hr>
+  <center>
+    <div class="card" style="width: 50rem;">
+      <img src="./images/img-yield.png" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Yield Prediction</h5>
+        <p class="card-text">
+        <input type="text" hidden name="rid" id="rid">
+        <!-- <input type="text" hidden name="picture" id="picture"> -->
+        <div class="row mb-3 g-3">
+          <label for="area" class="col-sm-4 col-form-label">Area (in sq. yards)</label>
+          <div class="col-sm-8">
+            <input type="number" class="form-control" id="area" name="area">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <label for="season" class="col-sm-4 col-form-label">Season of the crop</label>
+          <div class="col-sm-8">
+            <!-- <input type="text" class="form-control" id="season" name="season"> -->
+            <select class="form-select" id="season" name="season" aria-label="Default select example">
+              <option value="none">Select</option>
+              <option value="Kharif">Kharif</option>
+              <option value="Whole_Year">Whole Year</option>
+              <option value="Autumn">Autumn</option>
+              <option value="Rabi">Rabi</option>
+              <option value="Summer">Summer</option>
+              <option value="Winter">Winter</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <label for="ctype" class="col-sm-4 col-form-label">Crop Type</label>
+          <div class="col-sm-8">
+            <!-- <input type="text" class="form-control" id="type" name="type"> -->
+            <select class="form-select" id="ctype" name="ctype" aria-label="Default select example">
+              <option value="none">Select</option>
+              <option value="Arecanut">Areca nut</option>
+              <option value="Other_Kharif_Pulses">Other Kharif Pulses</option>
+              <option value="Rice">Rice</option>
+              <option value="Banana">Banana</option>
+              <option value="Cashewnut">Cashew nut</option>
+              <option value="Coconut">Coconut</option>
+              <option value="Dry_ginger">Dry ginger</option>
+              <option value="Sugarcane">Sugarcane</option>
+              <option value="Sweet_potato">Sweet potato</option>
+              <option value="Tapioca">Tapioca</option>
+              <option value="Black_pepper">Black pepper</option>
+              <option value="Tapioca">Tapioca</option>
+              <option value="Dry_Chillies">Dry Chillies</option>
+              <option value="other_oilseeds">Other Oilseeds</option>
+              <option value="Turmeric">Turmeric</option>
+              <option value="Maize">Maize</option>
+              <option value="Moong">Moong (Green Gram)</option>
+              <option value="Urad">Urad</option>
+              <option value="Arhar_Tur">Arhar/Tur</option>
+              <option value="Groundnut">Groundnut</option>
+              <option value="Sunflower">Sunflower</option>
+            </select>
+          </div>
+        </div>
+        </p>
+        <button onclick="yieldpre();" class="btn btn-primary me-3">Yield Prediction</button>
+        <div style="margin-top: 10px;"><span id="rec"
+            style="font-family: 'Times New Roman', Times, serif;font-weight: 00;font-size: large;">&nbsp;</span></div>
+      </div>
+    </div>
+  </center>
+  <!-- <div class="row mb-3 g-3">
+   <label for="loc" class="col-sm-2 col-form-label">City</label>
+   <div class="col-sm-2">
+    <input type="text" class="form-control" name="loc" id="loc">
+   </div>
+  </div> -->
+  <!-- <div class="row mb-3 g-3">
    <label for="landname" class="col-sm-2 col-form-label">Land Name</label>
    <div class="col-sm-10">
     <input readonly type="text" class="form-control" id="landname" name="landname">
    </div>
   </div> -->
- <div class="row mb-3 g-3">
-  <label for="area" class="col-sm-2 col-form-label">Area (in sq. yards)</label>
-  <div class="col-sm-10">
-   <input type="number" class="form-control" id="area" name="area">
-  </div>
- </div>
- <input type="text" hidden name="rid" id="rid">
- <!-- <input type="text" hidden name="picture" id="picture"> -->
- <div class="row mb-3 g-3">
-  <label for="n" class="col-sm-2 col-form-label">Nitrogen Content of Soil</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" class="form-control" id="n" name="n">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="p" class="col-sm-2 col-form-label">Phosphorous Content of Soil</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" class="form-control" id="p" name="p">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="k" class="col-sm-2 col-form-label">Potassium Content of Soil</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" name="k" class="form-control" id="k">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="ph" class="col-sm-2 col-form-label">PH of Soil</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" name="ph" class="form-control" id="ph">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="moisture" class="col-sm-2 col-form-label">Moisture Content of Soil</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" name="moisture" class="form-control" id="moisture">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="temperature" class="col-sm-2 col-form-label">Temperature</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" name="temperature" class="form-control" id="temperature">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="humidity" class="col-sm-2 col-form-label">Humidity</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" name="humidity" class="form-control" id="humidity">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="rainfall" class="col-sm-2 col-form-label">Rainfall</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" name="rainfall" class="form-control" id="rainfall">
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="type" class="col-sm-2 col-form-label">Soil Type</label>
-  <div class="col-sm-10">
-   <!-- <input type="text" class="form-control" id="type" name="type"> -->
-   <select class="form-select" id="type" name="type" aria-label="Default select example">
-    <option value="none">Select</option>
-    <option value="sandy">Sandy</option>
-    <option value="loamy">Loamy</option>
-    <option value="black">Black</option>
-    <option value="red">Red</option>
-    <option value="clayey">Clayey</option>
-   </select>
-  </div>
- </div>
- <div class="row mb-3 g-3">
-  <label for="ctype" class="col-sm-2 col-form-label">Crop Name</label>
-  <div class="col-sm-10">
-   <select readonly class="form-select" id="ctype" name="ctype" aria-label="Default select example">
-    <option value="none">Select</option>
-    <option value="Maize">Maize</option>
-    <option value="Sugarcane">Sugarcane</option>
-    <option value="Cotton">Cotton</option>
-    <option value="Tobacco">Tobacco</option>
-    <option value="Paddy">Paddy</option>
-    <option value="Barley">Barley</option>
-    <option value="Wheat">Wheat</option>
-    <option value="Millets">Millets</option>
-    <option value="Oilseeds">Oil seeds</option>
-    <option value="Pulses">Pulses</option>
-    <option value="GroundNuts">Ground Nuts</option>
-   </select>
-   <span id="emptyc">&nbsp;</span>
-  </div>
- </div>
- <br>
- <!-- <div class="row mb-3 g-3">
+  <!-- <div class="row mb-3 g-3">
+   <label for="area" class="col-sm-2 col-form-label">Area (in sq. yards)</label>
+   <div class="col-sm-10">
+    <input type="number" class="form-control" id="area" name="area">
+   </div>
+  </div> -->
+
+  <!-- <div class="row mb-3 g-3">
+   <label for="moisture" class="col-sm-2 col-form-label">Moisture Content of Soil</label>
+   <div class="col-sm-10">
+    <input type="number" step="0.01" name="moisture" class="form-control" id="moisture">
+   </div>
+  </div> -->
+
+  <!-- <div class="row mb-3 g-3">
+   <label for="type" class="col-sm-2 col-form-label">Soil Type</label>
+   <div class="col-sm-10">
+    <input type="text" class="form-control" id="type" name="type"> 
+    <select class="form-select" id="type" name="type" aria-label="Default select example">
+     <option value="none">Select</option>
+     <option value="sandy">Sandy</option>
+     <option value="loamy">Loamy</option>
+     <option value="black">Black</option>
+     <option value="red">Red</option>
+     <option value="clayey">Clayey</option>
+    </select>
+   </div>
+  </div> -->
+  <!-- <div class="row mb-3 g-3">
+    <label for="ctype" class="col-sm-2 col-form-label">Crop Name</label>
+    <div class="col-sm-10">
+      <select readonly class="form-select" id="ctype" name="ctype" aria-label="Default select example">
+       <option value="none">Select</option>
+       <option value="Maize">Maize</option>
+       <option value="Sugarcane">Sugarcane</option>
+       <option value="Cotton">Cotton</option>
+       <option value="Tobacco">Tobacco</option>
+       <option value="Paddy">Paddy</option>
+      <option value="Barley">Barley</option>
+      <option value="Wheat">Wheat</option>
+      <option value="Millets">Millets</option>
+      <option value="Oilseeds">Oil seeds</option>
+      <option value="Pulses">Pulses</option>
+      <option value="GroundNuts">Ground Nuts</option>
+      </select>
+      <span id="emptyc">&nbsp;</span>
+    </div>
+  </div> -->
+  <!-- <div class="row mb-3 g-3">
    <label for="pic" class="col-sm-2 col-form-label">Picture of the medicine</label>
    <div class="col-sm-3">
     <input type="file" onchange="show(this)" name="pic" class="form-control" id="pic">
@@ -266,26 +256,26 @@
   <div class="mb-3" style="margin-top: -400px; margin-left: 850px;">
    <img class="mx-5" src="" alt="" height="380px" width="380px" id="shw">
   </div> -->
- <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
-  <div class="card text-center" style="width: 14rem; float: left;">
-   <img src="./images/img-crop.jpg" class="card-img-top p-1 rounded" alt="...">
-   <div class="card-body">
-    <!-- <h5 class="card-title">Crop Recommendation</h5> -->
-    <!-- <input type="submit" value="Crop Recommendation"> -->
-    <!-- <button type="submit" formaction="/crop-rec" id="croprec" class="btn btn-primary me-3">Crop Recommendation</button> -->
-    <button onclick="croprec();" class="btn btn-primary me-3">Crop Recommendation</button>
-    <span id="rec">&nbsp;</span>
-   </div>
-  </div>
-  <div class="card text-center" style="width: 14rem; float: left;">
-   <img height="170" src="./images/img-Fertilizers.jpg" class="card-img-top p-1 rounded" alt="...">
-   <div class="card-body">
-    <!-- <h5 class="card-title">Fertilizer Recommendation</h5>
-        <input type="submit" value="Fertilizer Recommendation"> -->
-    <button onclick="fertrec();" class="btn btn-primary me-3">Fertilizer Recommendation</button>
-    <span id="fer">&nbsp;</span>
-   </div>
-  </div>
+  <!-- <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
+    <div class="card text-center" style="width: 14rem; float: left;">
+      <img src="./images/img-crop.jpg" class="card-img-top p-1 rounded" alt="...">
+      <div class="card-body">
+         <h5 class="card-title">Crop Recommendation</h5> -->
+  <!-- <input type="submit" value="Crop Recommendation"> -->
+  <!-- <button type="submit" formaction="/crop-rec" id="croprec" class="btn btn-primary me-3">Crop Recommendation</button> 
+        <button onclick="croprec();" class="btn btn-primary me-3">Crop Recommendation</button>
+        <span id="rec">&nbsp;</span>
+      </div>
+    </div> -->
+  <!-- <div class="card text-center" style="width: 14rem; float: left;">
+      <img height="170" src="./images/img-Fertilizers.jpg" class="card-img-top p-1 rounded" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Fertilizer Recommendation</h5>
+        <input type="submit" value="Fertilizer Recommendation"> 
+        <button onclick="fertrec();" class="btn btn-primary me-3">Fertilizer Recommendation</button>
+        <span id="fer">&nbsp;</span>
+      </div>
+    </div> -->
   <!-- <div class="card text-center" style="width: 14rem; float: left;">
       <img src="./images/img-yield.png" class="card-img-top p-1 rounded" alt="...">
       <div class="card-body">
@@ -293,8 +283,8 @@
         <input type="submit" value="Yield Prediction">
       </div>
     </div> -->
- </div>
- <!-- </form> -->
+  <!-- </div> -->
+  <!-- </form> -->
 </body>
 
 </html>
