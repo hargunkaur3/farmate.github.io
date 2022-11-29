@@ -301,3 +301,24 @@ function predictYield(req,res)
         // console.log(data.toString());
     } )
 }
+app.post("/disease",detectDisease);
+function detectDisease(req, res) {
+  console.log(req.query);
+//   req.body.picname=req.files.name;
+//   console.log(process.cwd());
+//   var uploadingPath=process.cwd()+"/public"+"/uploads/"+req.files.pic.name;
+//   req.files.pic.mv(uploadingPath,function(err){
+//   if(err){
+//    console.log(err);
+//   }
+//   else{
+//    console.log("Object uploaded");
+//   }
+//  });
+  var spawn = require("child_process").spawn;
+    var process = spawn('python',["./predict.py",req.query.pic] );
+    process.stdout.on('data', function(data) {
+        res.send(data.toString());
+        // console.log(data.toString());
+    } )
+}

@@ -29,6 +29,9 @@
    $("#managelandbtn").click(function () {
     window.location.href = "landinfo.html";
    });
+   $("#diseasedetect").click(function () {
+      window.location.href = "diseasedetect.html";
+    });
    $("#logoutbtn").click(function () {
       localStorage.removeItem("rid");
       localStorage.removeItem("email");
@@ -82,6 +85,15 @@
    <button type="button" class="btn btn-primary" id="managelandbtn">Land Manager</button>
   </div>
  </div>
+<div class="card text-center mx-3" style="width: 14rem;">
+  <img src="/public/images/img-disease.webp"
+    class="card-img-top p-1 rounded" alt="...">
+  <div class="card-body">
+    <!-- <h5 class="card-title">Profile</h5>
+     <p class="card-text">Update your profile.</p> -->
+    <button type="button" class="btn btn-primary" id="diseasedetect">Disease Detection</button>
+  </div>
+</div>
 <div class="card text-center mx-3" style="width: 14rem;">
   <img src="https://tse3.mm.bing.net/th?id=OIP.dcA2P0VJ8_H61WqmNKzwVQHaHa&pid=Api&P=0&w=300&h=300" class="card-img-top p-1 rounded" alt="...">
   <div class="card-body">
