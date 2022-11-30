@@ -188,7 +188,7 @@ def yieldpred():
                              float(crop),
                              float(area)]])
     print('Crop Yield Production for the crop is ', out_1[0])
-    pickle.dump(forest, open('croprec.pkl', 'wb'))
+    # pickle.dump(forest, open('croprec.pkl', 'wb'))
 
 
 if __name__ == '__main__':
