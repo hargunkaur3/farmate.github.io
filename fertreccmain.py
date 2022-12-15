@@ -87,8 +87,8 @@ def fertrec():
 
     data = np.array([[temp, hum, mois, soiltype, croptype, N, Potash, phos]])
     prediction = RF.predict(data)
-    str = "The best fertilizer for the soil and better yield is {}."
-    print(str.format(prediction[0].upper()))
+    str = "The best fertilizer for {} soil and better yield is {}."
+    print(str.format(sys.argv[4], prediction[0].upper()))
     pickle.dump(sv, open('fertpred.pkl', 'wb'))
 
 

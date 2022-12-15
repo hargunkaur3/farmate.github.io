@@ -48,7 +48,28 @@
             $("#rid").val(localStorage.getItem("rid"));
           }
         });
-      }
+      } else {
+            // alert("hi");
+            // $("#picture").val(null);
+            $("#rid").val(null);
+            // $("#shw").attr("src", "");
+            $("#lemail").css("visibility", "hidden");
+            $("#link").prop("href", "indexx.html");
+            $("#back").html("Back to Home Page");
+          }
+          // else {
+          //   // $("#save").css("visibility", "visible");
+          //   // $("#update").css("visibility", "hidden");
+          // }
+    }
+    function getth() {
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + $("#loc").val() + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
+        .then(response => response.json())
+        .then(data => {
+          $("#temperature").val(data['main']['temp']);
+          $("#humidity").val(data['main']['humidity']);
+        })
+        .catch(err => alert("Wrong city name!"));
     }
     async function disease() {
       alert(document.getElementById("shw").src);
@@ -71,12 +92,12 @@
 </head>
 
 <body onload="loading();">
- <a id="link" href="landinfo.html">
+<a id="link" href="landinfo.html">
   <div style="margin-top: 15px;" id="mybutton">
-   Back to Land Info
+    <span id="back"> Back to Land Info </span>
   </div>
- </a>
- <div class="row mb-3 g-3">
+</a>
+ <div id="lemail" class="row mb-3 g-3">
   <label for="email" class="col-sm-2 col-form-label" style="color: white;">Email</label>
   <div class="col-sm-4">
    <input type="email" class="form-control" name="email" id="email">

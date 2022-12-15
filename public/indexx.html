@@ -12,6 +12,8 @@
   <title>Index Page</title>
   <script>
     $(document).ready(function () {
+      localStorage.removeItem("rid");
+      localStorage.removeItem("email");
       $("#signup_nav").click(function () {
         $(this).addClass("active");
         $("#signupmodal").modal("show");
@@ -281,34 +283,38 @@
         </nav>
         <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
           <div class="card text-center" style="width: 14rem; float: left;">
+            <a href="crop.html" style="text-decoration: none; color:black">
             <img src="./images/img-crop.jpg" class="card-img-top p-1 rounded" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crop Recommendation</h5>
               <p class="card-text">This system recommends a crop based on the nutrients present in the soil, pH, rainfall, temperature and humidity which will help in not only maximizing the yeild but also protecting the environment.</p>
-            </div>
+          </div></a>
           </div>
           <div class="card text-center" style="width: 14rem; float: left;">
+            <a href="diseasedetect.html" style="text-decoration: none; color:black">
             <img height="170" src="./images/img-disease.webp" class="card-img-top p-1 rounded" alt="...">
             <div class="card-body">
               <h5 class="card-title">Disease Detection</h5>
               <p class="card-text">This AI and ML based disease detection system detects the type of disease by which a crop is affected using a picture of the plant leaf or fruit and then suggests ways to correct it.</p>
-            </div>
+            </div></a>
           </div>
           <div class="card text-center" style="width: 14rem; float: left;">
+            <a href="fert.html" style="text-decoration: none; color:black">
             <img height="170"
               src="./images/img-Fertilizers.jpg"
               class="card-img-top p-1 rounded" alt="...">
             <div class="card-body">
               <h5 class="card-title">Fertilizer Recommendation</h5>
               <p class="card-text">This system is used to predict the particular fertilizer to be used for a crop based on parameters like N, P and K contents of soil, temperature, humidity, moisture and soil type and the crop to be grown.</p>
-            </div>
+            </div></a>
           </div>
           <div class="card text-center" style="width: 14rem; float: left;">
+            <a href="yield.html" style="text-decoration: none; color:black">
             <img src="./images/img-yield.png" class="card-img-top p-1 rounded" alt="...">
             <div class="card-body">
               <h5 class="card-title">Yield Prediction</h5>
               <p class="card-text">Crop yield prediction is done using crop yield data, nutrients and location. It helps the farmer to build a realistic expectation of the MSP of his crop.</p>
-            </div>
+            </div></a>
           </div>
         </div>
       </td>
@@ -323,10 +329,10 @@
       </td>
     </tr><br>
     <tr>
-      <td>
-        Farming Made Easy!
-        
-        We make it easy for you to get started with e-farming. Our website provides personalized experiance and all the resources you need to get started, including step-by-step guides, tips and advice from our recommendation systems.
+      <td class="text-white">
+        <p style="margin-left: 160px; margin-right: 160px;">
+        Farmate was developed in the year 2022 by a few like minded students as their capstone project with the intention to ease the lives of the farmers.<br>
+        We make it easy for you to get started with e-farming. Our website provides all the resources you need to get started with personalized experiance, including step-by-step guides, tips and advice from our recommendation systems.</p>
         <!-- <div class="container" style="display: flex;justify-content: space-around;flex-wrap: wrap;flex-direction: row;">
           <div class="card text-center" style="width: 14rem; float: left;">
             <img height="170" src="./images/hargun.jpg" class="card-img-top p-1 rounded" alt="...">
@@ -363,10 +369,11 @@
     </tr>
 
     <tr>
-      <td class="" style="background-color: black">
-        <div class=" text-white">Copyright <i class="far fa-copyright"></i> 2022 CPGNo.30- All rights reserved.</div>
+      <td style="background-color: black;border-radius: 15px;">
+        
+        <div style="margin-left:15px;" class=" text-white">Copyright <i class="far fa-copyright"></i> 2022 CPGNo.30- All rights reserved.</div>
+        <br>
         <center>
-          <br>
           <a id="pptc" class="text-white" href="#" style="color: rgb(78, 78, 78); text-decoration: none; font-weight: bold;"> Privacy Policy </a> <i style="color: rgb(78, 78, 78);" class="fas fa-circle text-white"></i> 
           <a id="pptc"  class="text-white" style="color: rgb(78, 78, 78);text-decoration: none; font-weight: bold;" href="#"> Terms of Service </a>
         </center>
@@ -378,7 +385,7 @@
 
     <tr>
       <td>
-        <div class="text-white" style="text-align: center; font-size: 18px;">Farming is a profession of hope.</div>
+        <div class="text-white" style="text-align: center; font-size: 18px;">Farming Made Easy!</div>
       </td>
     </tr>
 

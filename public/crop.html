@@ -36,6 +36,7 @@
  <script>
   function loading() {
       var em = localStorage.getItem("email");
+      // alert(em);
       document.getElementById("email").value = em;
       if (localStorage.getItem("rid")) {
         var url = "/getinf?rid=" + localStorage.getItem("rid");
@@ -58,6 +59,7 @@
             // $("#moisture").val(resp[0].moisture);
             // $("#picture").val(resp[0].picname);
             // $("#shw").attr("src","/uploads/"+resp[0].picname);
+
             fetch('https://api.openweathermap.org/data/2.5/weather?q=' + $("#loc").val() + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
             .then(response => response.json())
             .then(data => 
@@ -81,20 +83,92 @@
         // $("#save").css("visibility", "hidden");
         // $("#update").css("visibility", "visible");
       }
+      else
+      {
+          // alert("hi");
+          $("#loc").val(null);
+          $("#n").val(null);
+          $("#p").val(null);
+          $("#k").val(null);
+          $("#ph").val(null);
+          // $("#picture").val(null);
+          $("#rid").val(null);
+          // $("#shw").attr("src", "");
+          $("#lemail").css("visibility", "hidden");
+          $("#link").prop("href","indexx.html");
+          $("#back").html("Back to Home Page");
+      }
       // else {
       //   // $("#save").css("visibility", "visible");
       //   // $("#update").css("visibility", "hidden");
       // }
     }
+    function getth()
+    {
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=' + $("#loc").val() + '&appid=02e8f4d0264227acfd2257c0ef551b93&units=metric')
+        .then(response => response.json())
+        .then(data => {
+          $("#temperature").val(data['main']['temp']);
+          $("#humidity").val(data['main']['humidity']);
+        })
+        .catch(err => alert("Wrong city name!"));
+    }
     async function croprec()
     {
         var n = $("#n").val();
+        if(n.length<1)
+        {
+          $("#emptyn").html("This is a compusory field.").css("color", "red");
+          return;
+        }
+        if(n<0||n>100)
+        {
+          $("#emptyn").html("Invalid value! (The value of N lies between 0 and 100)").css("color", "red");
+          return;
+        }
         var p = $("#p").val();
+        if (p.length < 1) {
+        $("#emptyp").html("This is a compusory field.").css("color", "red");
+        return;
+      }
+      if (p < 0 || p > 100) {
+        $("#emptyp").html("Invalid value! (The value of P lies between 0 and 100)").css("color", "red");
+        return;
+      }
         var k = $("#k").val();
+        if (k.length < 1) {
+        $("#emptyk").html("This is a compusory field.").css("color", "red");
+        return;
+      }
+      if (k < 0 || k > 100) {
+        $("#emptyk").html("Invalid value! (The value of K lies between 0 and 100)").css("color", "red");
+        return;
+      }
         var temp = $("#temperature").val();
         var hum = $("#humidity").val();
+        if(temp.length < 1||hum.length<1)
+        {
+          $("#emptyc").html("Enter correct city name or enter value of Temperature and Humidity.").css("color", "red");
+          return;
+        }
         var ph = $("#ph").val();
+        if (ph.length < 1) {
+        $("#emptyph").html("This is a compusory field.").css("color", "red");
+        return;
+      }
+      if (ph < 5 || ph > 8) {
+        $("#emptyph").html("Invalid value! (The value of pH lies between 5 and 8)").css("color", "red");
+        return;
+      }
         var rain = $("#rainfall").val();
+        if (rain.length < 1) {
+        $("#emptyr").html("This is a compusory field.").css("color", "red");
+        return;
+      }
+      if (rain < 20 || rain > 300) {
+        $("#emptyr").html("Invalid value! (The value of Rainfall lies between 20 and 300)").css("color", "red");
+        return;
+      }
         var url = "/crop-rec?n=" + n +"&p="+ p +"&k="+ k +"&temp="+ temp +"&hum="+ hum +"&ph="+ ph +"&rainfall="+ rain;
         // alert(url);
         const res = await $.post(url, function (res) {
@@ -108,19 +182,27 @@
           });
           // alert("Hi");
     }
+    function re() {
+        $("#emptyn").html("");
+        $("#emptyk").html("");
+        $("#emptyp").html("");
+        $("#emptyph").html("");
+        $("#emptyr").html("");
+        $("#emptyc").html("");
+      }
  </script>
 </head>
 
 <body onload="loading();">
  <a id="link" href="landinfo.html">
   <div style="margin-top: 15px;" id="mybutton">
-   Back to Land Info
+   <span id="back"> Back to Land Info </span>
   </div>
  </a>
  <!-- <h1><input type="text" class="form-control" id="landname" name="landname"></h1> -->
  <!-- <hr> -->
 <!-- <form class="mx-5" method="POST" enctype="multipart/form-data"> -->
-  <div class="row mb-3 g-3">
+  <div id="lemail" class="row mb-3 g-3">
    <label for="email" class="col-sm-2 col-form-label" style="color: white;">Email</label>
    <div class="col-sm-4">
     <input type="email" class="form-control" name="email" id="email">
@@ -131,11 +213,13 @@
     <img src="./images/img-crop.jpg" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">Crop Recommendation</h5>
+      <br>
       <p class="card-text">
         <div class="row mb-3 g-3">
           <label for="loc" class="col-sm-4 col-form-label">City</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="loc" id="loc">
+            <input type="text" class="form-control" name="loc" id="loc" onblur="getth();">
+            <span id="emptyc"></span>
           </div>
         </div>
         <input type="text" hidden name="rid" id="rid">
@@ -143,25 +227,29 @@
         <div class="row mb-3 g-3">
           <label for="n" class="col-sm-4 col-form-label">Nitrogen Content of Soil</label>
           <div class="col-sm-8">
-            <input type="number" step="0.01" class="form-control" id="n" name="n">
+            <input type="number"  onblur="re();" step="0.01" class="form-control" id="n" name="n">
+            <span id="emptyn"></span>
           </div>
         </div>
         <div class="row mb-3 g-3">
           <label for="p" class="col-sm-4 col-form-label">Phosphorous Content of Soil</label>
           <div class="col-sm-8">
-            <input type="number" step="0.01" class="form-control" id="p" name="p">
+            <input type="number" onblur="re();" step="0.01" class="form-control" id="p" name="p">
+            <span id="emptyp"></span>
           </div>
         </div>
         <div class="row mb-3 g-3">
           <label for="k" class="col-sm-4 col-form-label">Potassium Content of Soil</label>
           <div class="col-sm-8">
-            <input type="number" step="0.01" name="k" class="form-control" id="k">
+            <input type="number" onblur="re();" step="0.01" name="k" class="form-control" id="k">
+            <span id="emptyk"></span>
           </div>
         </div>
         <div class="row mb-3 g-3">
           <label for="ph" class="col-sm-4 col-form-label">PH of Soil</label>
           <div class="col-sm-8">
-            <input type="number" step="0.01" name="ph" class="form-control" id="ph">
+            <input type="number" onblur="re();" step="0.01" name="ph" class="form-control" id="ph">
+            <span id="emptyph"></span>
           </div>
         </div>
         <div class="row mb-3 g-3">
@@ -179,7 +267,8 @@
         <div class="row mb-3 g-3">
           <label for="rainfall" class="col-sm-4 col-form-label">Rainfall (in mm)</label>
           <div class="col-sm-8">
-            <input type="number" step="0.01" name="rainfall" class="form-control" id="rainfall">
+            <input type="number" onblur="re();" step="0.01" name="rainfall" class="form-control" id="rainfall">
+            <span id="emptyr"></span>
           </div>
         </div>
       </p>
