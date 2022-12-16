@@ -55,7 +55,7 @@
     }
    }
    $scope.undo = function () {
-    alert(localStorage.getItem("rid"));
+    // alert(localStorage.getItem("rid"));
     document.getElementById("undo").style="visibility: hidden;";
     //alert(localStorage.getItem("rid"));
       $http.get("/undoland?rid=" + localStorage.getItem("rid")).then(goodfn, badfn);
@@ -86,6 +86,9 @@
     /* background-color: #f0e9fa; */
     background-image: linear-gradient(135deg, #0d3010 10%, #063106 100%);
      color: aliceblue;
+     /* background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(./images/5257455.jpg);
+     background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(./images/jade_green_hand_painted_alcohol_ink_background_with_glitter_elements_0202.jpg); */
+    background-size: cover;
   }
   #link{
    text-decoration: none;
@@ -103,6 +106,11 @@
    color: darkslategray;
    background-color: azure;
   }
+  .icon-input-btn{
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+    }
 </style>
  <title>Document</title>
 </head>
@@ -112,26 +120,27 @@
       Back to dashboard
     </div>
   </a>
+  <div style="margin-left: 10em; margin-right: 10em;">
  <h1>My Lands</h1>
  <hr>
  <div class="row mb-3">
   <label for="email" class="col-sm-1 col-form-label"><center>Email</center></label>
-  <div class="col-sm-2">
+  <div class="col-sm-4">
    <input readonly type="email" class="form-control" ng-model="email" ng-change="fetch();" id="email">
   </div>
  </div>
  <table class="table table-success table-bordered table-hover">
   <tr>
    <th>Sr.no.</th>
-   <th>Name of the Land</th>
+   <th>Name</th>
    <th>City</th>
    <th>Area (in sq. yards)</th>
-   <!-- <th>Nitrogen Content</th>
-   <th>Phosphorous Content</th>
-   <th>Potassium Content</th>
-   <th>pH of Soil</th>
-   <th>Moisture of Soil</th>
-   <th>Soil Type</th> -->
+   <th>N </th>
+   <th>P </th>
+   <th>K </th>
+   <th>pH</th>
+   <th>Moisture</th>
+   <th>Soil Type</th>
    <th colspan="5"><center>Operations</center></th>
   </tr>
   <tr ng-repeat="obj in jsonArray">
@@ -139,19 +148,28 @@
     <td align="center">{{obj.landname}}</td>
     <td align="center">{{obj.loc}}</td>
     <td align="center">{{obj.area}}</td>
-    <!-- <td align="center">{{obj.n}}</td>
+    <td align="center">{{obj.n}}</td>
     <td align="center">{{obj.p}}</td>
     <td align="center">{{obj.k}}</td>
     <td align="center">{{obj.ph}}</td>
     <td align="center">{{obj.moisture}}</td>
-    <td align="center">{{obj.type}}</td> -->
-   <td align="center"><input type="button" value="Update" ng-click="redir(obj.rid);"></td>
-  <td align="center"><input type="button" value="Recommend Crop" ng-click="redir2crop(obj.rid);"></td>
-  <td align="center"><input type="button" value="Recommend Fertilizer" ng-click="redir2fert(obj.rid);"></td>
-  <td align="center"><input type="button" value="Predict Yield" ng-click="redir2yield(obj.rid);"></td>
-   <td align="center"><input type="button" value="Delete" ng-click="doDelete(obj.rid);"></td>
+    <td align="center">{{obj.type}}</td>
+   <td align="center">
+    <span ng-click="redir(obj.rid);" class="icon-input-btn">
+      <i class="fa fa-pen"></i>
+    </span>
+  <td align="center"><input type="button" class="btn btn-secondary btn-sm" value="Recommend Crop" ng-click="redir2crop(obj.rid);"></td>
+  <td align="center"><input type="button" class="btn btn-secondary btn-sm" value="Recommend Fertilizer" ng-click="redir2fert(obj.rid);"></td>
+  <td align="center">
+  <input type="button" class="btn btn-secondary btn-sm" value="Predict Yield" ng-click="redir2yield(obj.rid);"></td>
+  <td align="center">
+    <span ng-click="doDelete(obj.rid);" class="icon-input-btn">
+      <i class="fa fa-trash"></i>
+    </span>
+  </td>
   </tr>
  </table>
-<input style="visibility: hidden;" id="undo" type="button" value="Undo" ng-click="undo();">
+<input style="visibility: hidden;" class="icon-input-btn" id="undo" type="button" value="Undo" ng-click="undo();">
+</div>
 </body>
 </html>

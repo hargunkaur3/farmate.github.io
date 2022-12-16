@@ -36,6 +36,8 @@
   function loading(){
     var em=localStorage.getItem("email");
     document.getElementById("email").value=em;
+    // document.getElementById('save').disabled = true;
+    // document.getElementById('update').disabled = true;
     if(localStorage.getItem("rid")){
       var url="/getinf?rid=" + localStorage.getItem("rid");
       // alert(url);
@@ -124,6 +126,99 @@
   //     });
   //   }
   //   }
+  function checkc()
+  {
+    var c= $("#loc").val();
+    if (c.length < 1) {
+      $("#emptyc").html("This is a compusory field.").css("color", "red");
+      return 0;
+    }
+    else
+    {
+      $("#emptyc").html("");
+      return 1;
+    }
+  }
+  function checka() {
+      var a = $("#area").val();
+      if (a.length < 1) {
+        $("#emptya").html("This is a compusory field.").css("color", "red");
+        return 0;
+      }
+      else {
+        $("#emptya").html("");
+        return 1;
+      }
+    }
+  function check()
+  {
+    if(checka()&&checkc())
+    {
+      document.getElementById('save').disabled = false;
+      document.getElementById('update').disabled = false;
+    }
+    else{
+      document.getElementById('save').disabled = true;
+      document.getElementById('update').disabled = true;
+    }
+  }
+  function checkn()
+  {
+    var n = $("#n").val();
+    if (n < 0 || n > 100) {
+      $("#emptyn").html("Invalid value! (The value of N lies between 0 and 100)").css("color", "red");
+      document.getElementById('save').disabled = true;
+      document.getElementById('update').disabled = true;
+    }
+    else
+    {
+      $("#emptyn").html("");
+      document.getElementById('save').disabled = false;
+      document.getElementById('update').disabled = false;
+    }
+  }
+  function checkp()
+  {
+    var p = $("#p").val();
+    if (p < 0 || p > 100) {
+      $("#emptyp").html("Invalid value! (The value of P lies between 0 and 100)").css("color", "red");
+      document.getElementById('save').disabled = true;
+      document.getElementById('update').disabled = true;
+    }
+    else {
+      $("#emptyp").html("");
+      document.getElementById('save').disabled = false;
+      document.getElementById('update').disabled = false;
+    }
+  }
+  function checkk()
+  {
+    var k = $("#k").val();
+    if (k < 0 || k > 100) {
+      $("#emptyk").html("Invalid value! (The value of K lies between 0 and 100)").css("color", "red");
+      document.getElementById('save').disabled = true;
+      document.getElementById('update').disabled = true;
+    }
+    else {
+      $("#emptyk").html("");
+      document.getElementById('save').disabled = false;
+      document.getElementById('update').disabled = false;
+    }
+  }
+  function checkph()
+  {
+    var ph = $("#ph").val();
+    if (ph < 5 || ph > 8) {
+      $("#emptyph").html("Invalid value! (The value of pH lies between 5 and 8)").css("color", "red");
+      document.getElementById('save').disabled = true;
+      document.getElementById('update').disabled = true;
+    }
+    else {
+      $("#emptyph").html("");
+      document.getElementById('save').disabled = false;
+      document.getElementById('update').disabled = false;
+    }
+  }
  </script>
 </head>
 <body onload="loading();">
@@ -132,67 +227,74 @@
       Back to dashboard
     </div>
   </a>
+  <div style="margin-left: 10em;margin-right: 10em;">
  <h1>New Land</h1><hr>
  <form class="mx-5" method="POST" enctype="multipart/form-data">
   <div class="row mb-3 g-3">
-   <label for="email" class="col-sm-2 col-form-label">Email</label>
-   <div class="col-sm-10">
+   <label for="email" class="col-sm-4 col-form-label">Email</label>
+   <div class="col-sm-8">
     <input readonly type="email" class="form-control" name="email" id="email">
    </div>
   </div>
   <div class="row mb-3 g-3">
-    <label for="loc" class="col-sm-2 col-form-label">City</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="loc" id="loc">
+    <label for="loc" class="col-sm-4 col-form-label">City</label>
+    <div class="col-sm-8">
+      <input type="text" onblur="check();" class="form-control" name="loc" id="loc">
+      <span id="emptyc"></span>
     </div>
   </div>
   <div class="row mb-3 g-3" >
-   <label for="landname" class="col-sm-2 col-form-label">Land Name</label>
-  <div class="col-sm-10">
+   <label for="landname" class="col-sm-4 col-form-label">Land Name</label>
+  <div class="col-sm-8">
    <input type="text" class="form-control" id="landname" name="landname">
    </div>
   </div>
   <div class="row mb-3 g-3">
-    <label for="area" class="col-sm-2 col-form-label">Area (in sq. yards)</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="area" name="area">
+    <label for="area" class="col-sm-4 col-form-label">Area (in sq. yards)</label>
+    <div class="col-sm-8">
+      <input type="number" onblur="check();" class="form-control" id="area" name="area">
+      <span id="emptya"></span>
     </div>
   </div>
   <input type="text" hidden name="rid" id="rid">
   <!-- <input type="text" hidden name="picture" id="picture"> -->
   <div class="row mb-3 g-3" >
-   <label for="n" class="col-sm-2 col-form-label">Nitrogen Content of Soil</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" class="form-control" id="n" name="n">
+   <label for="n" class="col-sm-4 col-form-label">Nitrogen Content of Soil</label>
+  <div class="col-sm-8">
+   <input type="number" onblur="checkn();" step="0.01" class="form-control" id="n" name="n">
+  <span id="emptyn"></span>
    </div>
   </div>
   <div class="row mb-3 g-3" >
-   <label for="p" class="col-sm-2 col-form-label">Phosphorous Content of Soil</label>
-  <div class="col-sm-10">
-   <input type="number" step="0.01" class="form-control" id="p" name="p">
+   <label for="p" class="col-sm-4 col-form-label">Phosphorous Content of Soil</label>
+  <div class="col-sm-8">
+   <input type="number" onblur="checkp();" step="0.01" class="form-control" id="p" name="p">
+  <span id="emptyp"></span>
    </div>
   </div>
   <div class="row mb-3 g-3">
-    <label for="k" class="col-sm-2 col-form-label">Potassium Content of Soil</label>
-    <div class="col-sm-10">
-    <input type="number" step="0.01" name="k" class="form-control" id="k">
+    <label for="k" class="col-sm-4 col-form-label">Potassium Content of Soil</label>
+    <div class="col-sm-8">
+    <input type="number" onblur="checkk();" step="0.01" name="k" class="form-control" id="k">
+    <span id="emptyk"></span>
     </div>
   </div>
   <div class="row mb-3 g-3">
-    <label for="ph" class="col-sm-2 col-form-label">PH of Soil</label>
-    <div class="col-sm-10">
-    <input type="number" step="0.01" name="ph" class="form-control" id="ph">
+    <label for="ph" class="col-sm-4 col-form-label">PH of Soil</label>
+    <div class="col-sm-8">
+    <input type="number" onblur="checkph();" step="0.01" name="ph" class="form-control" id="ph">
+    <span id="emptyph"></span>
     </div>
   </div>
   <div class="row mb-3 g-3">
-    <label for="moisture" class="col-sm-2 col-form-label">Moisture Content of Soil</label>
-    <div class="col-sm-10">
+    <label for="moisture" class="col-sm-4 col-form-label">Moisture Content of Soil</label>
+    <div class="col-sm-8">
       <input type="number" step="0.01" name="moisture" class="form-control" id="moisture">
     </div>
   </div>
   <div class="row mb-3 g-3" >
-   <label for="type" class="col-sm-2 col-form-label">Soil Type</label>
-  <div class="col-sm-10">
+   <label for="type" class="col-sm-4 col-form-label">Soil Type</label>
+  <div class="col-sm-8">
    <select class="form-select" id="type" name="type" aria-label="Default select example">
     <option value="none">Select</option>
     <option value="sandy">Sandy</option>
@@ -213,10 +315,11 @@
   <div class="mb-3" style="margin-top: -400px; margin-left: 850px;">
    <img class="mx-5" src="" alt="" height="380px" width="380px" id="shw">
   </div> -->
-  <center><button type="submit" formaction="/land-save" id="save" class="btn btn-primary me-3">Save</button>
-   <button type="submit" formaction="/land-update" id="update" class="btn btn-primary ms-3">Update</button>
+  <center><button type="submit" onpointerenter="check();" formaction="/land-save" id="save" class="btn btn-primary me-3">Save</button>
+   <button type="submit" onpointerenter="check();" formaction="/land-update" id="update" class="btn btn-primary ms-3">Update</button>
   <button type="button" onclick="resetme();" class="btn btn-primary ms-3">Add New Land</button>
   </center>
  </form>
+</div>
 </body>
 </html>

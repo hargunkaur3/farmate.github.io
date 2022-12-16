@@ -105,12 +105,12 @@
         return;
       }
       var season = $("#season").val();
-      if (season == "none") {
+      if (season == null) {
         $("#emptys").html("Please select the season in which the crop is sown!").css("color", "red");
         return;
       }
       var ctype = $("#ctype").val();
-      if (ctype == "none") {
+      if (ctype == null) {
         $("#emptyc").html("Please select the crop type!").css("color", "red");
         return;
       }
@@ -164,28 +164,25 @@
           <label for="loc" class="col-sm-4 col-form-label">City</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" name="loc" id="loc" onblur="getth();">
-            <br>
           </div>
         </div>
         <div class="row mb-3 g-3">
           <label for="temperature" class="col-sm-4 col-form-label">Temperature</label>
           <div class="col-sm-8">
             <input type="number" step="0.01" name="temperature" class="form-control" id="temperature">
-            <br>
           </div>
         </div>
         <div class="row mb-3 g-3">
           <label for="humidity" class="col-sm-4 col-form-label">Humidity</label>
           <div class="col-sm-8">
             <input type="number" step="0.01" name="humidity" class="form-control" id="humidity">
-            <br>
           </div>
         </div>
         <div class="row mb-3 g-3">
           <label for="area" class="col-sm-4 col-form-label">Area (in sq. yards)</label>
           <div class="col-sm-8">
             <input type="number" onblur="re();" class="form-control" id="area" name="area">
-            <span id="emptya">&nbsp;</span>
+            <span id="emptya"></span>
           </div>
         </div>
         <div class="row mb-3 g-3">
@@ -201,7 +198,7 @@
               <option value="Summer">Summer</option>
               <option value="Winter">Winter</option>
             </select>
-            <span id="emptys">&nbsp;</span>
+            <span id="emptys"></span>
           </div>
         </div>
         <div class="row mb-3 g-3">
@@ -232,7 +229,7 @@
               <option value="Groundnut">Groundnut</option>
               <option value="Sunflower">Sunflower</option>
             </select>
-            <span id="emptyc">&nbsp;</span>
+            <span id="emptyc"></span>
           </div>
         </div>
         </p>
