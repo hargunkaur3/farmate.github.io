@@ -72,9 +72,10 @@
         .catch(err => alert("Wrong city name!"));
     }
     async function disease() {
-      alert(document.getElementById("shw").src);
+      // alert(document.getElementById("shw").src);
       var url = "/disease?pic=" + document.getElementById("shw").src;
-      const res = await $.post(url, function (res) {
+      // const res = 
+      await $.post(url, function (res) {
         if (res.length == 0) {
           // alert("hello");
         }
@@ -110,6 +111,7 @@
    <div class="card-body">
     <h5 class="card-title">Disease Detection</h5>
     <p class="card-text">
+      <form class="mx-5" method="POST" enctype="multipart/form-data">
      <input type="text" hidden name="rid" id="rid">
     <div class="row mb-3 g-3">
      <label for="pic" class="col-sm-4 col-form-label">Picture of the effected plant</label>
@@ -120,8 +122,10 @@
     <div class="mb-3">
      <img class="mx-5" src="" alt="" height="380px" width="380px" id="shw">
     </div>
+    <button type="submit" formaction="/disease" class="btn btn-primary me-3">Detect Disease</button>
+    </form>
     </p>
-    <button onclick="disease();" class="btn btn-primary me-3">Detect Disease</button>
+    <!-- <button onclick="disease();" class="btn btn-primary me-3">Detect Disease</button> -->
     <div style="margin-top: 10px;"><span id="rec"
       style="font-family: 'Times New Roman', Times, serif;font-weight: 00;font-size: large;">&nbsp;</span></div>
    </div>

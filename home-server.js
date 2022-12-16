@@ -303,22 +303,20 @@ function predictYield(req,res)
 }
 app.post("/disease",detectDisease);
 function detectDisease(req, res) {
-  console.log(req.query);
-//   req.body.picname=req.files.name;
-//   console.log(process.cwd());
-//   var uploadingPath=process.cwd()+"/public"+"/uploads/"+req.files.pic.name;
-//   req.files.pic.mv(uploadingPath,function(err){
-//   if(err){
-//    console.log(err);
-//   }
-//   else{
-//    console.log("Object uploaded");
-//   }
-//  });
+  // console.log(process.cwd());
+  var uploadingPath="C:/Users/hargu/Farmate"+"/public"+"/uploads/"+"infect.jpg";
+  req.files.pic.mv(uploadingPath,function(err){
+  if(err){
+   console.log(err);
+  }
+  else{
+  //  console.log("Object uploaded");
+  }
+ });
   var spawn = require("child_process").spawn;
-    var process = spawn('python',["./predict.py",req.query.pic] );
+    var process = spawn('python',["./vib.py",uploadingPath] );
     process.stdout.on('data', function(data) {
-        res.send(data.toString());
-        // console.log(data.toString());
+      console.log(data.toString());
+        // res.send(data.toString());
     } )
 }
