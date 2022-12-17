@@ -30,7 +30,7 @@ def getPrediction(imgd):
     sortProb = np.argsort(prob[0, :])
     import os
     os.system("cls")
-    print(categories[sortProb[-1]])
+    print(categories[sortProb[1]])
 
 
 getPrediction(sys.argv[1])

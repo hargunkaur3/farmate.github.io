@@ -116,12 +116,12 @@
       }
       var url = "/yield-pre?season=" + season + "&crop=" + ctype + "&area=" + area ;
       // alert(url);
-      const res = await $.post(url, function (res) {
+      const res =  $.post(url, function (res) {
         if (res.length == 0) {
-          // alert("hello");
+          alert("hello");
         }
         else {
-          // alert(res);
+          alert(res);
           $("#rec").html(res);
         }
       });

@@ -41,8 +41,11 @@ def yieldpred():
     from sklearn.ensemble import RandomForestRegressor
     from sklearn.datasets import make_regression
     from sklearn.metrics import roc_auc_score, classification_report, mean_squared_error, r2_score
+    # forest = RandomForestRegressor(n_estimators=1000,
+    #                                criterion='mse',
+    #                                random_state=1,
+    #                                n_jobs=-1)
     forest = RandomForestRegressor(n_estimators=1000,
-                                   criterion='mse',
                                    random_state=1,
                                    n_jobs=-1)
     forest.fit(X_train, Y_train)
