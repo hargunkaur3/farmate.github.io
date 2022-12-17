@@ -118,10 +118,10 @@
       // alert(url);
       const res =  $.post(url, function (res) {
         if (res.length == 0) {
-          alert("hello");
+          // alert("hello");
         }
         else {
-          alert(res);
+          // alert(res);
           $("#rec").html(res);
         }
       });
@@ -207,27 +207,62 @@
             <!-- <input type="text" class="form-control" id="type" name="type"> -->
             <select class="form-select" id="ctype" name="ctype" onblur="re();"  aria-label="Default select example">
               <option value="none">Select</option>
-              <option value="Arecanut">Areca nut</option>
-              <option value="Other_Kharif_Pulses">Other Kharif Pulses</option>
+              <option value="Maize">Maize</option>
+              <option value="Sugarcane">Sugarcane</option>
+              <option value="lint">Cotton (lint)</option>
+              <option value="Tobacco">Tobacco</option>
               <option value="Rice">Rice</option>
-              <option value="Banana">Banana</option>
+              <option value="Wheat">Wheat</option>
+              <option value="Small_millets">Small millets</option>
+              <option value="other_oilseeds">Other Oilseeds</option>
+              <option value="Other_Kharif_Pulses">Other Kharif Pulses</option>
+              <option value="Other_Misc_Pulses">Other Misc Pulses</option>
+              <option value="Other_Rabi_Pulses">Other Rabi Pulses</option>
+              <option value="Groundnut">Groundnut</option>
+              <option value="Arecanut">Areca nut</option>
               <option value="Cashewnut">Cashew nut</option>
+              <option value="Banana">Banana</option>
               <option value="Coconut">Coconut</option>
               <option value="Dry_ginger">Dry ginger</option>
-              <option value="Sugarcane">Sugarcane</option>
               <option value="Sweet_potato">Sweet potato</option>
               <option value="Tapioca">Tapioca</option>
               <option value="Black_pepper">Black pepper</option>
               <option value="Tapioca">Tapioca</option>
               <option value="Dry_Chillies">Dry Chillies</option>
-              <option value="other_oilseeds">Other Oilseeds</option>
               <option value="Turmeric">Turmeric</option>
-              <option value="Maize">Maize</option>
               <option value="Moong">Moong (Green Gram)</option>
               <option value="Urad">Urad</option>
               <option value="Arhar_Tur">Arhar/Tur</option>
-              <option value="Groundnut">Groundnut</option>
               <option value="Sunflower">Sunflower</option>
+              <option value="Bajra">Bajra</option>
+              <option value="Castor_seed">Castor seed</option>
+              <option value="Horse_gram">Horse-gram</option>
+              <option value="Jowar">Jowar</option>
+              <option value="Korra">Korra</option>
+              <option value="Ragi">Ragi</option>
+              <option value="Gram">Gram</option>
+              <option value="Masoor">Masoor</option>
+              <option value="Sesamum">Sesamum</option>
+              <option value="Linseed">Linseed</option>
+              <option value="Safflower">Safflower</option>
+              <option value="Onion">Onion</option>
+              <option value="Samai">Samai</option>
+              <option value="Coriander">Coriander</option>
+              <option value="Potato">Potato</option>
+              <option value="Soyabean">Soyabean</option>
+              <option value="Beans_Mutter">Beans and Mutter(vegetable)</option>
+              <option value="Bhindi">Bhindi</option>
+              <option value="Brinjal">Brinjal</option>
+              <option value="Citrus_Fruit">Citrus Fruit</option>
+              <option value="Cucumber">Cucumber</option>
+              <option value="Grapes">Grapes</option>
+              <option value="Mango">Mango</option>
+              <option value="Orange">Orange</option>
+              <option value="other_fibres">Other Fibres</option>
+              <option value="Other_Fresh_Fruits">Other Fresh Fruits</option>
+              <option value="Other_Vegetables">Other Vegetables</option>
+              <option value="Papaya">Papaya</option>
+              <option value="Pome_Fruit">Pome Fruit</option>
             </select>
             <span id="emptyc"></span>
           </div>

@@ -118,11 +118,11 @@ def yieldpred():
         crop = 68
     elif crop == 'Bajra':
         crop = 2
-    elif crop == 'Castor seed':
+    elif crop == 'Castor_seed':
         crop = 13
-    elif crop == 'Cotton(lint)':
+    elif crop == 'lint':
         crop = 17
-    elif crop == 'Horse-gram':
+    elif crop == 'Horse_gram':
         crop = 28
     elif crop == 'Jowar':
         crop = 36
@@ -146,27 +146,27 @@ def yieldpred():
         crop = 18
     elif crop == 'Onion':
         crop = 33
-    elif crop == 'other misc.pulses':
+    elif crop == 'Other_Misc_Pulses':
         crop = 54
     elif crop == 'Samai':
         crop = 63
-    elif crop == 'Small millets':
+    elif crop == 'Small_millets':
         crop = 11
     elif crop == 'Coriander':
         crop = 58
     elif crop == 'Potato':
         crop = 50
-    elif crop == 'Other Rabi Pulses':
+    elif crop == 'Other_Rabi_Pulses':
         crop = 40
     elif crop == 'Soyabean':
         crop = 9
-    elif crop == 'Beans & Mutter(vegetable)':
+    elif crop == 'Beans_Mutter':
         crop = 75
     elif crop == 'Bhindi':
         crop = 22
     elif crop == 'Brinjal':
         crop = 23
-    elif crop == 'Citrus Fruit':
+    elif crop == 'Citrus_Fruit':
         crop = 41
     elif crop == 'Cucumber':
         crop = 56
@@ -176,15 +176,15 @@ def yieldpred():
         crop = 51
     elif crop == 'Orange':
         crop = 8
-    elif crop == 'other fibres':
+    elif crop == 'other_fibres':
         crop = 52
-    elif crop == 'Other Fresh Fruits':
+    elif crop == 'Other_Fresh_Fruits':
         crop = 4
-    elif crop == 'Other Vegetables':
+    elif crop == 'Other_Vegetables':
         crop = 62
     elif crop == 'Papaya':
         crop = 31
-    elif crop == 'Pome Fruit':
+    elif crop == 'Pome_Fruit':
         crop = 27
 
     out_1 = forest.predict([[float(season),
