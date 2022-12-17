@@ -105,12 +105,12 @@
         return;
       }
       var season = $("#season").val();
-      if (season == null) {
+      if (season == null|| season == "none") {
         $("#emptys").html("Please select the season in which the crop is sown!").css("color", "red");
         return;
       }
       var ctype = $("#ctype").val();
-      if (ctype == null) {
+      if (ctype == null|| ctype == "none") {
         $("#emptyc").html("Please select the crop type!").css("color", "red");
         return;
       }

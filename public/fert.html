@@ -154,11 +154,11 @@
       }
         var ctype = $("#ctype").val();
         var type = $("#type").val();
-        if (type == null) {
+        if (type == null|| type == "none") {
         $("#emptyt").html("Please select the soil type!").css("color", "red");
         return;
         }
-        if(ctype==null)
+        if(ctype=="none"|| ctype == null)
         {
           $("#emptyc").html("Please select the crop name!").css("color", "red");
           return;

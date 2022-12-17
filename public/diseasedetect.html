@@ -71,24 +71,88 @@
         })
         .catch(err => alert("Wrong city name!"));
     }
-    async function disease() {
-      // alert(document.getElementById("shw").src);
-      var url = "/disease?pic=" + document.getElementById("shw").src;
-      // const res = 
-      await $.post(url, function (res) {
-        if (res.length == 0) {
-          // alert("hello");
-        }
-        else {
-          // alert(res);
-          $("#rec").html(res);
-        }
-      });
-      // alert("Hi");
-    }
+    // async function disease() {
+    //   // alert(document.getElementById("shw").src);
+    //   var url = "/disease?pic=" + document.getElementById("shw").src;
+    //   // const res = 
+    //   await $.post(url, function (res) {
+    //     if (res.length == 0) {
+    //       // alert("hello");
+    //     }
+    //     else {
+    //       // alert(res);
+    //       $("#rec").html(res);
+    //     }
+    //   });
+    //   // alert("Hi");
+    // }
     function show(ref) {
       document.getElementById("shw").src = URL.createObjectURL(ref.files[0]);
+      
      }
+    //  var mime_types = ['image/jpeg', 'image/png', 'image/jpg'];
+
+    //   var submit_button = document.querySelector('#submit');
+
+      // function disease() {
+      //   alert();
+      //   // check if user has selected file OR not
+      //   var selected_file = document.querySelector('#pic');
+      //   if (selected_file.files.length == 0) {
+      //     alert('Please select file to upload.');
+      //     return;
+      //   }
+      //   // Get the file uploaded
+      //   var file = selected_file.files[0];
+
+      //   // validate MIME type
+      //   if (mime_types.indexOf(file.type) == -1) {
+      //     alert('Please select jpeg or png files only.');
+      //     return;
+      //   }
+      //   // max 5 MB size allowed
+      //   if (file.size > 1 * 1024 * 1024) {
+      //     alert('Please select file having less than 1MB size.');
+      //     return;
+      //   }
+      //   // upload file
+      //   var form_data = new FormData();
+      //   // append selected file to the formData object
+      //   form_data.append('file', document.querySelector('#pic').files[0]);
+      //   fetch("http://localhost:2007/disease", {
+      //     method: 'POST',
+      //     body: formData,
+      //     headers: {
+      //       "Content-Type": "multipart/form-data"
+      //     }
+      //   })
+      //     .then((res) => console.log(res))
+      //     .catch((err) => ("Error occured", err));
+      //   // var request = new XMLHttpRequest();
+      //   // request.open('post', 'home-server.js');
+      //   // request.send(form_data);
+      //   // var url = "/disease?pic=" + form_data;
+      //   // // const res = 
+      //   //  $.post(url, function (res) {
+      //   //   if (res.length == 0) {
+      //   //     // alert("hello");
+      //   //   }
+      //   //   else {
+      //   //     // alert(res);
+      //   //     $("#rec").html(res);
+      //   //   }
+      //   // });
+      //   // $.post(form_data, function (res) {
+      //   //   if (res.length == 0) {
+      //   //     // alert("hello");
+      //   //   }
+      //   //   else {
+      //   //     // alert(res);
+      //   //     $("#rec").html(res);
+      //   //   }
+      //   // });
+        
+      // }
  </script>
 </head>
 
@@ -116,12 +180,14 @@
     <div class="row mb-3 g-3">
      <label for="pic" class="col-sm-4 col-form-label">Picture of the effected plant</label>
      <div class="col-sm-8">
-      <input type="file" onchange="show(this)" name="pic" class="form-control" id="pic">
+      <input type="file" id="pic" onchange="show(this)" class="form-control" name="pic" accept="image/jpeg, image/png, image/jpg" />
+      <!-- <input type="file" onchange="show(this)" name="pic" class="form-control" id="pic"> -->
      </div>
     </div>
     <div class="mb-3">
      <img class="mx-5" src="" alt="" height="380px" width="380px" id="shw">
     </div>
+    <!-- <button id="submit" onclick="disease();" class="btn btn-primary me-3">Detect Disease</button> -->
     <button type="submit" formaction="/disease" class="btn btn-primary me-3">Detect Disease</button>
     </form>
     </p>

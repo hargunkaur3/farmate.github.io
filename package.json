@@ -14,11 +14,12 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "nodemailer": "^6.6.2",
     "nodemon": "^2.0.15"
   },
   "browser": {
-    "child_process" : true
+    "child_process": true
   }
 }

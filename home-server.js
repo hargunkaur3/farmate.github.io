@@ -301,8 +301,19 @@ function predictYield(req,res)
         // console.log(data.toString());
     } )
 }
-app.post("/disease",detectDisease);
+
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// const multer = require("multer");
+// const upload = multer({ dest: "public/uploads/" });
+// app.post("/disease",upload.array("file"), detectDisease);
+app.post("/disease", detectDisease);
 function detectDisease(req, res) {
+  // console.log(req.body);
+  // console.log(req.files);
+  // res.json({ message: "Successfully uploaded files" });
+  // console.log(req.query);
+  // console.log(req.body);
   // console.log(process.cwd());
   var uploadingPath="C:/Users/hargu/Farmate"+"/public"+"/uploads/"+"infect.jpg";
   req.files.pic.mv(uploadingPath,function(err){
@@ -316,7 +327,9 @@ function detectDisease(req, res) {
   var spawn = require("child_process").spawn;
     var process = spawn('python',["./vib.py",uploadingPath] );
     process.stdout.on('data', function(data) {
+    var d=data.toString();
+    // console.log(d);
       console.log(data.toString());
-        // res.send(data.toString());
+    // res.json(d);
     } )
 }
