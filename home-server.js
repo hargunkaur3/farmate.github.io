@@ -35,7 +35,7 @@ app.listen(port, function () {
 });
 
 app.get("/home", function (req, resp) {
- resp.sendFile(process.cwd() + "/public/indexx.html");
+ resp.sendFile(process.cwd() + "/public/index.html");
 });
 app.get("/ajax-check-user", function (req, resp) {
  //console.log(req.query.email);
