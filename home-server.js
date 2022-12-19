@@ -29,11 +29,15 @@ dbcon.connect(function (err) {
 app.use(express.static("public"));
 app.post(express.urlencoded({extended:true}));
 const port=process.env.PORT||2007;
-app.listen(port, function () {
-  console.log(port);
- console.log("Server Started");
-});
-
+// app.listen(port, function () {
+//   console.log(port);
+//  console.log("Server Started");
+// });
+const http = require('http');
+const hostname='0.0.0.0';
+app.listen(port,hostname,()=>{
+  console.log(`Server running at http://${hostname}:${port}/`);
+})
 app.get("/home", function (req, resp) {
  resp.sendFile(process.cwd() + "/public/index.html");
 });
